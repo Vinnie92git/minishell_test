@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 14:57:00 by vipalaci         ###   ########.fr       */
+/*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
+/*   Updated: 2023/11/27 14:55:44 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main()
+void	panic(int err, t_token **list, t_token *token)
 {
-	t_token	*token_list;
-	char	*cmd_line;
-
-	token_list = NULL;
-	cmd_line = NULL;
-	while (1)
-	{
-		cmd_line = readline("minishell-0.1$ ");
-		if (cmd_line == NULL)
-		{
-			printf("readline error\n");
-			exit (1);
-		}
-		lexer(&token_list, cmd_line);
-		ms_print_lst(token_list);
-		ms_lstclear(&token_list);
-	}
-	free(cmd_line);
-	return (0);
+	if (err == QUOTING_ERR)
+		printf("No closing quotes found\n");
+	ms_lstclear(list);
+	free(token);
+	exit (1);
 }

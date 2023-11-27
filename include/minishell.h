@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 11:53:33 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:59:29 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,16 @@ typedef struct s_inf
 #define INIT_INT		-1  // TOKEN_TYPE & OTHER ERRORS
 #define FALSE			0	//BOOLEAN
 #define TRUE			1	//BOOLEAN
+#define WORD			2	//WORDS & QUOTED STRING
 #define GREAT			3	//'>'
-#define	LESS			4	//'<'
-#define	APPEND			5	//'>>'
-#define	HEREDOC			6	//'<<'
-#define	GREATAMPERSAND	7	//'>&'
-#define	PIPE			8	//'|'
-#define	END				9	//'\0'
+#define LESS			4	//'<'
+#define APPEND			5	//'>>'
+#define HEREDOC			6	//'<<'
+#define GREATAMPERSAND	7	//'>&'
+#define PIPE			8	//'|'
+#define END				9	//'\0'
+
+/* ------- ERRORS ------- */
+#define QUOTING_ERR		11
 
 #endif

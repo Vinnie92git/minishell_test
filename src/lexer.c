@@ -6,13 +6,13 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 14:35:13 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:00:50 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	handle_quotes(t_token *token_list, char *input, int i)
+int	handle_quotes(t_token **token_list, char *input, int i)
 {
 	t_token	*token;
 	int		end;
@@ -22,13 +22,22 @@ void	handle_quotes(t_token *token_list, char *input, int i)
 	token = ms_lstnew();
 	end = i;
 	quote = 1;
-	while
-	
+	while (input[end] && !is_quote(input[end]))
+	{
+		if (is_quote(input[end]))
+			quote = 0;
+		end++;
+	}
+	if (quote)
+		panic(QUOTING_ERR, token_list, token);
 	token->content = ft_substr(input, i, end - i);
-	ms_lstadd_back(&token_list, token);
+	token->type = WORD;
+	ms_lstadd_back(token_list, token);
+	free(token);
+	return (end);
 }
 
-void	lexer(t_token *token_list, char *input)
+void	lexer(t_token **token_list, char *input)
 {
 	int		i;
 	
@@ -38,12 +47,11 @@ void	lexer(t_token *token_list, char *input)
 		while (input[i] == ' ')
 			i++;
 		if (is_quote(input[i]))
-			handle_quotes(token_list, input, i);
+			i = handle_quotes(token_list, input, i);
 		else if (is_operator(input[i]))
-			handle_operators(token_list, input, i);
+			i = handle_operators(token_list, input, i);
 		else
-			handle_words(token_list, input, i);
-		i++;
+			i = handle_words(token_list, input, i);
 	}
 }
 
