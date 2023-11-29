@@ -6,11 +6,48 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 15:00:50 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:11:40 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	handle_words(t_token **token_list, char *input, int i)
+{
+	t_token	*token;
+	int		end;
+
+	token = NULL;
+	token = ms_lstnew();
+	end = i;
+	while (input[end] && !is_space(input[end]) && !is_quote(input[end])
+		&& !is_operator(input[end]))
+		end++;
+	token->content = ft_substr(input, i, end - i);
+	ms_lstadd_back(token_list, token);
+	free(token);
+	return (i);
+}
+
+int	handle_operators(t_token **token_list, char *input, int i)
+{
+	t_token	*token;
+
+	token = NULL;
+	token = ms_lstnew();
+	token->type = operator_type(input, i);
+	if (token->type == HEREDOC || token->type == APPEND)
+	{
+		token->content =  ft_substr(input, i, 2);
+		i++;
+	}
+	else
+		token->content =  ft_substr(input, i, 1);
+	i++;
+	ms_lstadd_back(token_list, token);
+	free(token);
+	return (i);
+}
 
 int	handle_quotes(t_token **token_list, char *input, int i)
 {
@@ -21,17 +58,21 @@ int	handle_quotes(t_token **token_list, char *input, int i)
 	token = NULL;
 	token = ms_lstnew();
 	end = i;
-	quote = 1;
-	while (input[end] && !is_quote(input[end]))
+	quote = is_quote(input[i]);
+	end++;
+	while (input[end] && quote != 0)
 	{
-		if (is_quote(input[end]))
+		if (quote == is_quote(input[end]))
 			quote = 0;
 		end++;
 	}
 	if (quote)
 		panic(QUOTING_ERR, token_list, token);
 	token->content = ft_substr(input, i, end - i);
-	token->type = WORD;
+	if (is_quote(i) == SINGLE_QUOTE)
+		token->type = SQ_WORD;
+	else
+		token->type = DQ_WORD;
 	ms_lstadd_back(token_list, token);
 	free(token);
 	return (end);
@@ -44,7 +85,7 @@ void	lexer(t_token **token_list, char *input)
 	i = 0;
 	while (input[i])
 	{
-		while (input[i] == ' ')
+		while (is_space(input[i]))
 			i++;
 		if (is_quote(input[i]))
 			i = handle_quotes(token_list, input, i);
@@ -54,9 +95,3 @@ void	lexer(t_token **token_list, char *input)
 			i = handle_words(token_list, input, i);
 	}
 }
-
-// {
-// 	while (input[i] && !is_quote(input[i]) && !is_operator(input[i]))
-// 		i++;
-// 	end = i;
-// }

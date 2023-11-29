@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 14:59:29 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:09:27 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,46 @@ typedef struct s_inf
 }	t_inf;
 
 /* ------- DEFINES ------- */
-#define INIT_INT		-1  // TOKEN_TYPE & OTHER ERRORS
-#define FALSE			0	//BOOLEAN
-#define TRUE			1	//BOOLEAN
-#define WORD			2	//WORDS & QUOTED STRING
-#define GREAT			3	//'>'
-#define LESS			4	//'<'
-#define APPEND			5	//'>>'
-#define HEREDOC			6	//'<<'
-#define GREATAMPERSAND	7	//'>&'
-#define PIPE			8	//'|'
-#define END				9	//'\0'
+// #define INIT_INT		-1  //TOKEN_TYPE & OTHER ERRORS
+// #define FALSE			0	//BOOLEAN
+// #define TRUE			1	//BOOLEAN
+// #define SQ_WORD			2	//SINGLE QUOTED STRING
+// #define DQ_WORD			3	//DOUBLE QUOTED STRING
+// #define GREAT			4	//'>'
+// #define LESS			5	//'<'
+// #define APPEND			6	//'>>'
+// #define HEREDOC			7	//'<<'
+// #define GREATAMPERSAND	8	//'>&'
+// #define PIPE			9	//'|'
+// #define END				10	//'\0'
 
 /* ------- ERRORS ------- */
-#define QUOTING_ERR		11
+// #define QUOTING_ERR		11
+
+enum boolean {
+	FALSE,
+	TRUE,
+};
+
+enum tokens {
+	IN_REDIR,
+	OUT_REDIR,
+	HEREDOC,
+	APPEND,
+	PIPE,
+	WORD
+};
+
+enum quotes {
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+	SQ_WORD,
+	DQ_WORD
+};
+
+enum error {
+	INIT_INT,
+	QUOTING_ERR
+};
 
 #endif

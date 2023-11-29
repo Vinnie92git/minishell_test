@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 11:57:54 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:45:16 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ms_print_lst(t_token *token)
 {
 	while (token)
 	{
-		printf("token = %s\n", token->content);
+		printf("token = %s ", token->content);
+		printf("type = %d\n", token->type);
 		token = token->next;
 	}
 }
