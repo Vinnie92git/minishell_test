@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/29 13:09:27 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:23:39 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,27 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+// typedef struct s_inf
+// {
+// 	t_token	*token_list;
+// }	t_inf;
+
 typedef struct s_inf
 {
-	t_token	*token_list;
+	int				signal_code;
+	struct termios	termios;
 }	t_inf;
 
-/* ------- DEFINES ------- */
-// #define INIT_INT		-1  //TOKEN_TYPE & OTHER ERRORS
-// #define FALSE			0	//BOOLEAN
-// #define TRUE			1	//BOOLEAN
-// #define SQ_WORD			2	//SINGLE QUOTED STRING
-// #define DQ_WORD			3	//DOUBLE QUOTED STRING
-// #define GREAT			4	//'>'
-// #define LESS			5	//'<'
-// #define APPEND			6	//'>>'
-// #define HEREDOC			7	//'<<'
-// #define GREATAMPERSAND	8	//'>&'
-// #define PIPE			9	//'|'
-// #define END				10	//'\0'
+t_inf	g_info;
 
-/* ------- ERRORS ------- */
-// #define QUOTING_ERR		11
-
-enum boolean {
-	FALSE,
+/* ------ ENUMS ------ */
+enum e_boolean {
+	FALSE = 0,
 	TRUE,
 };
 
-enum tokens {
-	IN_REDIR,
+enum e_tokens {
+	IN_REDIR = 2,
 	OUT_REDIR,
 	HEREDOC,
 	APPEND,
@@ -76,16 +68,40 @@ enum tokens {
 	WORD
 };
 
-enum quotes {
-	SINGLE_QUOTE,
+enum e_quotes {
+	SINGLE_QUOTE = 8,
 	DOUBLE_QUOTE,
 	SQ_WORD,
 	DQ_WORD
 };
 
-enum error {
-	INIT_INT,
+enum e_error {
+	INIT_INT = 12,
 	QUOTING_ERR
 };
+
+/* ------ LEXER ------ */
+int		lexer(t_token **token_list, char *input);
+int		handle_quotes(t_token **token_list, char *input, int i);
+int		handle_operators(t_token **token_list, char *input, int i);
+int		handle_words(t_token **token_list, char *input, int i);
+int		operator_type(char *input, int i);
+int		is_operator(char c);
+int		is_quote(char c);
+int		is_space(char c);
+
+/* ------ LISTS ------ */
+t_token	*ms_lstnew(void);
+void	ms_lstadd_back(t_token **list, t_token *new);
+void	ms_lstclear(t_token **list);
+void	ms_print_lst(t_token *token);
+
+/* ------ UTILS ------ */
+size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char	*s1);
+
+/* ------ ERROR ------ */
+void	panic(int err, t_token **list, t_token *token);
 
 #endif

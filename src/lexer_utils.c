@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:58:28 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/29 12:39:56 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 17:32:31 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_space(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\r' || c == '\n')
+	if (c == ' ')
 		return (TRUE);
 	return (FALSE);
 }
@@ -41,7 +41,7 @@ int	is_operator(char c)
 		return (FALSE);
 }
 
-int operator_type(char *input, int i)
+int	operator_type(char *input, int i)
 {
 	if (input[i] == '>' && input[i + 1] == '>')
 		return (APPEND);

@@ -6,13 +6,13 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 14:57:00 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:24:49 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main()
+int	main(void)
 {
 	t_token	*token_list;
 	char	*cmd_line;
@@ -28,8 +28,9 @@ int	main()
 			exit (1);
 		}
 		lexer(&token_list, cmd_line);
-		ms_print_lst(token_list);
-		ms_lstclear(&token_list);
+		add_history(cmd_line);
+		printf("command line = %s\n", cmd_line);
+		tcsetattr(0, 0, &g_info.termios);
 	}
 	free(cmd_line);
 	return (0);

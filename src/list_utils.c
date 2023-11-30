@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/29 11:45:16 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:29:55 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ms_print_lst(t_token *token)
 {
-	while (token)
+	while (token != NULL)
 	{
-		printf("token = %s ", token->content);
-		printf("type = %d\n", token->type);
+		printf("token = %s\n", token->content);
 		token = token->next;
 	}
 }
@@ -39,7 +38,7 @@ t_token	*ms_lstnew(void)
 void	ms_lstadd_back(t_token **list, t_token *new)
 {
 	t_token	*aux;
-	
+
 	aux = *list;
 	if (*list == NULL)
 	{
@@ -58,11 +57,14 @@ void	ms_lstclear(t_token **list)
 {
 	t_token	*aux;
 
-	while (*list)
+	if (list != NULL)
 	{
-		aux = (*list)->next;
-		free(*list);
-		(*list) = aux;
+		while (*list)
+		{
+			aux = (*list)->next;
+			free(*list);
+			(*list) = aux;
+		}
+		*list = NULL;
 	}
-	*list = NULL;
 }
