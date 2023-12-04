@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:12:25 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 13:15:53 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:36:40 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned int	i;
+	unsigned char	*cast_b;
+
+	cast_b = (unsigned char *)b;
+	i = 0;
+	while (len > 0)
+	{
+		cast_b[i] = (unsigned char)c;
+		i++;
+		len--;
+	}
+	return (cast_b);
 }

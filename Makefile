@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
+#    By: vini <vini@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2023/11/29 14:16:08 by vipalaci         ###   ########.fr        #
+#    Updated: 2023/12/04 21:24:43 by vini             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,23 @@
 GREEN = \033[0;32m
 COLOR_OFF = \033[0m
 
+# CASA #
+READLINE_DIR = $(shell brew --prefix readline)
+FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
+# 42 #
+#READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
+#FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
+
 # VARIABLES #
 RM = rm -rf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I ./include
+CFLAGS	=	-Wall -Wextra -Werror -I ./include -I $(READLINE_DIR)/include
 NAME = minishell
-INCLUDE = include/
+# INCLUDE = include/
 
-# READLINE
-RLINE_INC	= -I/sgoinfre/students/$(USER)/homebrew/opt/readline/include
-RLINE_L		= -lreadline -L /sgoinfre/students/$(USER)/homebrew/opt/readline/lib
+# # READLINE
+# RLINE_INC	= -I/sgoinfre/students/$(USER)/homebrew/opt/readline/include
+# RLINE_L		= -lreadline -L /sgoinfre/students/$(USER)/homebrew/opt/readline/lib
 
 # OBJECTS #
 SRC = main.c lexer.c lexer_utils.c list_utils.c utils.c error.c
@@ -40,10 +47,10 @@ all: $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(RLINE_INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(RLINE_L) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(FLAG) -o $(NAME)
 	@echo "$(GREEN)#### minishell has been created ####$(COLOR_OFF)"
 
 clean:

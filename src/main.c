@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/30 18:24:49 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:25:15 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	main(void)
 			printf("readline error\n");
 			exit (1);
 		}
+		cmd_line[ft_strlen(cmd_line)] = '\0';
 		lexer(&token_list, cmd_line);
 		add_history(cmd_line);
 		printf("command line = %s\n", cmd_line);
-		tcsetattr(0, 0, &g_info.termios);
+		free(cmd_line);
 	}
-	free(cmd_line);
 	return (0);
 }
