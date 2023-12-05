@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:58:28 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 14:10:20 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:09:28 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_space(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
+	if (c == ' ')
 		return (TRUE);
 	return (FALSE);
 }
