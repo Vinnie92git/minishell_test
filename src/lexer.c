@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 10:26:41 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:51:07 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	handle_words(t_token **token_list, char *input, int i)
 		end++;
 	token->content = ft_substr(input, i, end - i);
 	ms_lstadd_back(token_list, token);
-	free(token);
 	return (end);
 }
 
@@ -43,7 +42,6 @@ int	handle_operators(t_token **token_list, char *input, int i)
 		token->content = ft_substr(input, i, 1);
 	i++;
 	ms_lstadd_back(token_list, token);
-	free(token);
 	return (i);
 }
 
@@ -72,7 +70,6 @@ int	handle_quotes(t_token **token_list, char *input, int i)
 	else
 		token->type = DQ_WORD;
 	ms_lstadd_back(token_list, token);
-	free(token);
 	return (end);
 }
 
@@ -93,6 +90,6 @@ int	lexer(t_token **token_list, char *input)
 			i = handle_words(token_list, input, i);
 		i++;
 	}
-	// ms_print_lst(*token_list);
+	ms_print_lst(*token_list);
 	return (0);
 }
