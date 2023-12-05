@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/30 19:02:44 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:06:33 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	lexer(t_token **token_list, char *input)
 	i = 0;
 	while (input && input[i])
 	{
+		printf("%c\n", input[i]);
 		if (is_space(input[i]))
 			i++;
 		else if (is_quote(input[i]))
@@ -93,6 +94,6 @@ int	lexer(t_token **token_list, char *input)
 			i = handle_words(token_list, input, i);
 		i++;
 	}
-	ms_print_lst(*token_list);
+	// ms_print_lst(*token_list);
 	return (0);
 }

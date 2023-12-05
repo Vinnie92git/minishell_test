@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:58:28 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/30 17:32:31 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:14:14 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@ int	is_quote(char c)
 {
 	if (c == '\'')
 		return (SINGLE_QUOTE);
-	else if (c == '"')
+	if (c == '"')
 		return (DOUBLE_QUOTE);
-	else
-		return (FALSE);
+	return (FALSE);
 }
 
 int	is_operator(char c)
 {
 	if (c == '|')
 		return (PIPE);
-	else if (c == '<')
+	if (c == '<')
 		return (IN_REDIR);
-	else if (c == '>')
+	if (c == '>')
 		return (OUT_REDIR);
-	else
-		return (FALSE);
+	return (FALSE);
 }
 
 int	operator_type(char *input, int i)
