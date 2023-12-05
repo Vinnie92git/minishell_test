@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/30 18:23:39 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/04 21:25:06 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 /* ------ STRUCTS ------ */
 typedef struct s_token	t_token;
-typedef struct s_inf	t_inf;
 
 typedef struct s_token
 {
@@ -39,19 +38,6 @@ typedef struct s_token
 	char			*content;
 	struct s_token	*next;
 }	t_token;
-
-// typedef struct s_inf
-// {
-// 	t_token	*token_list;
-// }	t_inf;
-
-typedef struct s_inf
-{
-	int				signal_code;
-	struct termios	termios;
-}	t_inf;
-
-t_inf	g_info;
 
 /* ------ ENUMS ------ */
 enum e_boolean {
@@ -100,6 +86,7 @@ void	ms_print_lst(t_token *token);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char	*s1);
+void	*ft_memset(void *b, int c, size_t len);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);

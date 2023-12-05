@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/30 19:12:14 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/05 10:27:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	main(void)
 			printf("readline error\n");
 			exit (1);
 		}
+		cmd_line[ft_strlen(cmd_line)] = '\0';
 		lexer(&token_list, cmd_line);
 		add_history(cmd_line);
+		printf("command line = %s\n", cmd_line);
 		tcsetattr(0, 0, &g_info.termios);
 	}
-	free(cmd_line);
 	return (0);
 }
