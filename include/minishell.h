@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/11 12:01:47 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:43:28 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ enum e_error {
 	QUOTING_ERR
 };
 
+/* ------ MAIN ------ */
+char	**get_env(char **envp);
+
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input);
 int		handle_quotes(t_token **token_list, char *input, int i);
@@ -75,6 +78,10 @@ int		operator_type(char *input, int i);
 int		is_operator(char c);
 int		is_quote(char c);
 int		is_space(char c);
+
+/* ------ PARSER ------ */
+void	parser(t_token **token_list);
+void	parse_cmd(t_token **token_list);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
