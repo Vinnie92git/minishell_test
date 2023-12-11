@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 14:08:57 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:01:47 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_token	*ms_lstnew(void);
 void	ms_lstadd_back(t_token **list, t_token *new);
 void	ms_lstclear(t_token **list);
 void	ms_print_lst(t_token *token);
+int		ms_check_lst(t_token *token, int type);
 
 /* ------ UTILS ------ */
 size_t	ft_strlen(const char *str);

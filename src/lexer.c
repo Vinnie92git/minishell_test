@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 14:51:07 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:40:00 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	handle_words(t_token **token_list, char *input, int i)
 	int		end;
 
 	token = ms_lstnew();
+	token->type = WORD;
 	end = i;
-	while (input[end] && !is_space(input[end]) && !is_operator(input[end]))
+	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
+		&& !is_quote(input[end]))
 		end++;
 	token->content = ft_substr(input, i, end - i);
 	ms_lstadd_back(token_list, token);
@@ -88,8 +90,7 @@ int	lexer(t_token **token_list, char *input)
 			i = handle_operators(token_list, input, i);
 		else
 			i = handle_words(token_list, input, i);
-		i++;
 	}
-	ms_print_lst(*token_list);
+	// ms_print_lst(*token_list);
 	return (0);
 }

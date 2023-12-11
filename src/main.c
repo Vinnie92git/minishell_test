@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 15:11:20 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:31:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 	while (1)
 	{
 		cmd_line = readline("minishell-0.1$ ");
-		if (cmd_line == NULL)
+		if (!cmd_line)
 		{
 			printf("readline error\n");
 			exit (1);
@@ -30,7 +30,8 @@ int	main(void)
 		cmd_line[ft_strlen(cmd_line)] = '\0';
 		lexer(&token_list, cmd_line);
 		add_history(cmd_line);
-		// printf("command line = %s\n", cmd_line);
+		// ms_check_lst(token_list, PIPE);
+		ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
 	}

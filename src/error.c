@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/11/27 14:55:44 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:19:53 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	panic(int err, t_token **list, t_token *token)
 {
 	if (err == QUOTING_ERR)
 		printf("No closing quotes found\n");
-	ms_lstclear(list);
-	free(token);
+	if (list)
+		ms_lstclear(list);
+	if (token)
+		free(token);
 	exit (1);
 }
