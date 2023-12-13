@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/11 11:40:00 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/13 22:24:05 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	handle_dsign(t_token **token_list, char *input, int i)
+{
+	t_token	*token;
+
+	token = ms_lstnew();
+	// if (input[i + 1] == '?')
+	// {
+	// 	get_signal();
+	// 	return (i + 2);
+	// }
+	i++;
+	while (input[i])
+	
+	ms_lstadd_back(token_list, token);
+	return (i);
+}
 
 int	handle_words(t_token **token_list, char *input, int i)
 {
@@ -21,7 +38,7 @@ int	handle_words(t_token **token_list, char *input, int i)
 	token->type = WORD;
 	end = i;
 	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
-		&& !is_quote(input[end]))
+		&& !is_quote(input[end]) && !is_dsign(input[end]))
 		end++;
 	token->content = ft_substr(input, i, end - i);
 	ms_lstadd_back(token_list, token);
@@ -32,7 +49,6 @@ int	handle_operators(t_token **token_list, char *input, int i)
 {
 	t_token	*token;
 
-	token = NULL;
 	token = ms_lstnew();
 	token->type = operator_type(input, i);
 	if (token->type == HEREDOC || token->type == APPEND)
@@ -53,7 +69,6 @@ int	handle_quotes(t_token **token_list, char *input, int i)
 	int		end;
 	int		quote;
 
-	token = NULL;
 	token = ms_lstnew();
 	end = i;
 	quote = is_quote(input[i]);
@@ -88,6 +103,8 @@ int	lexer(t_token **token_list, char *input)
 			i = handle_quotes(token_list, input, i);
 		else if (is_operator(input[i]))
 			i = handle_operators(token_list, input, i);
+		else if (is_dsign(input[i]))
+			i = handle_dsign(token_list, input, i);
 		else
 			i = handle_words(token_list, input, i);
 	}

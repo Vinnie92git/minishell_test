@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/11 14:43:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:50:25 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ enum e_quotes {
 
 enum e_error {
 	INIT_INT = 12,
-	QUOTING_ERR
+	QUOTING_ERR,
+	READLINE_ERR
 };
 
 /* ------ MAIN ------ */
@@ -78,6 +79,7 @@ int		operator_type(char *input, int i);
 int		is_operator(char c);
 int		is_quote(char c);
 int		is_space(char c);
+int		is_dsign(char c);
 
 /* ------ PARSER ------ */
 void	parser(t_token **token_list);

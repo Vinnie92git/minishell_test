@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/11 14:40:49 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:15:22 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd_line = readline("minishell-0.2$ ");
 		if (!cmd_line)
-		{
-			printf("readline error\n");
-			exit (1);
-		}
+			panic(READLINE_ERR, NULL, NULL);
 		cmd_line[ft_strlen(cmd_line)] = '\0';
 		lexer(&token_list, cmd_line);
 		add_history(cmd_line);

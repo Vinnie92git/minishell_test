@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:58:28 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/05 15:09:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:50:07 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	is_dsign(char c)
+{
+	if (c == '$')
+		return (TRUE);
+	return (FALSE);
+}
 
 int	is_space(char c)
 {
