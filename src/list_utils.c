@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/11 12:01:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:19:25 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	ms_check_lst(t_token *token, int type)
 	while (token && token->content != NULL)
 	{
 		if (token->type == type)
-			return(printf("requested type found\n"));
+			return (printf("requested type found\n"));
 		token = token->next;
 	}
-	return(printf("requested type NOT found\n"));
+	return (printf("requested type NOT found\n"));
 }
 
 void	ms_print_lst(t_token *token)

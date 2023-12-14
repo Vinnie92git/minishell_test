@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/13 22:24:05 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/14 13:16:21 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	handle_dsign(t_token **token_list, char *input, int i)
+int	handle_dsign(t_token **token_list, char *input, int i, char **env)
 {
 	t_token	*token;
+	char	*var;
+	int		end;
 
 	token = ms_lstnew();
 	// if (input[i + 1] == '?')
@@ -23,10 +25,14 @@ int	handle_dsign(t_token **token_list, char *input, int i)
 	// 	return (i + 2);
 	// }
 	i++;
-	while (input[i])
-	
+	end = i;
+	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
+		&& !is_quote(input[end]) && !is_dsign(input[end]))
+		end++;
+	var = ft_substr(input, i, end - i);
+	token->content = find_var(var, env);
 	ms_lstadd_back(token_list, token);
-	return (i);
+	return (end);
 }
 
 int	handle_words(t_token **token_list, char *input, int i)
@@ -90,7 +96,7 @@ int	handle_quotes(t_token **token_list, char *input, int i)
 	return (end);
 }
 
-int	lexer(t_token **token_list, char *input)
+int	lexer(t_token **token_list, char *input, char **env)
 {
 	int		i;
 
@@ -104,7 +110,7 @@ int	lexer(t_token **token_list, char *input)
 		else if (is_operator(input[i]))
 			i = handle_operators(token_list, input, i);
 		else if (is_dsign(input[i]))
-			i = handle_dsign(token_list, input, i);
+			i = handle_dsign(token_list, input, i, env);
 		else
 			i = handle_words(token_list, input, i);
 	}

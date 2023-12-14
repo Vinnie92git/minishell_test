@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/13 21:50:25 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/14 12:47:03 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ enum e_error {
 char	**get_env(char **envp);
 
 /* ------ LEXER ------ */
-int		lexer(t_token **token_list, char *input);
+int		lexer(t_token **token_list, char *input, char **env);
 int		handle_quotes(t_token **token_list, char *input, int i);
 int		handle_operators(t_token **token_list, char *input, int i);
 int		handle_words(t_token **token_list, char *input, int i);
+int		handle_dsign(t_token **token_list, char *input, int i, char **env);
 int		operator_type(char *input, int i);
 int		is_operator(char c);
 int		is_quote(char c);
@@ -96,7 +97,9 @@ int		ms_check_lst(t_token *token, int type);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char	*s1);
-void	*ft_memset(void *b, int c, size_t len);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*find_var(char *var, char **env);
+// void	*ft_memset(void *b, int c, size_t len);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);
