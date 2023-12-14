@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 12:47:03 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:46:31 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ enum e_error {
 };
 
 /* ------ MAIN ------ */
-char	**get_env(char **envp);
+char	**copy_env(char **envp);
 
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);

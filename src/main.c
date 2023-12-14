@@ -6,13 +6,13 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 13:22:16 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:24:52 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	**get_env(char **envp)
+char	**copy_env(char **envp)
 {
 	char	**env_cpy;
 	int		i;
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	token_list = NULL;
 	cmd_line = NULL;
-	env_cpy = get_env(envp);
+	env_cpy = copy_env(envp);
 	while (1)
 	{
 		cmd_line = readline("minishell-0.2$ ");
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer(&token_list, cmd_line, env_cpy);
 		add_history(cmd_line);
 		// ms_check_lst(token_list, PIPE);
-		// ms_print_lst(token_list);
+		ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
 	}
