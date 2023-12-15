@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 14:46:58 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:41:59 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	handle_dsign(t_token **token_list, char *input, int i, char **env)
 		end++;
 	var = ft_substr(input, i, end - i);
 	token->content = find_var(var, env);
+	// if (!token->content)
+	// 	var_exp_error();
 	ms_lstadd_back(token_list, token);
 	return (end);
 }
@@ -69,7 +71,7 @@ int	handle_operators(t_token **token_list, char *input, int i)
 	return (i);
 }
 
-int	handle_quotes(t_token **token_list, char *input, int i)
+int	handle_quotes(t_token **token_list, char *input, int i, char **env)
 {
 	t_token	*token;
 	int		end;
@@ -79,19 +81,19 @@ int	handle_quotes(t_token **token_list, char *input, int i)
 	end = i;
 	quote = is_quote(input[i]);
 	end++;
-	while (input[end] && quote != 0)
-	{
+	while (input[end++] && quote != 0)
 		if (quote == is_quote(input[end]))
 			quote = 0;
-		end++;
-	}
-	if (quote)
-		panic(QUOTING_ERR, token_list, token);
-	token->content = ft_substr(input, i, end - i);
-	if (is_quote(i) == SINGLE_QUOTE)
+	if (is_quote(input[i]) == SINGLE_QUOTE)
+	{
 		token->type = SQ_WORD;
-	else
+		token->content = ft_substr(input, i, end - i);
+	}
+	else if (is_quote(input[i]) == DOUBLE_QUOTE)
+	{
 		token->type = DQ_WORD;
+		token->content = quoted_dsign(input, i, end, env);
+	}
 	ms_lstadd_back(token_list, token);
 	return (end);
 }
@@ -106,7 +108,7 @@ int	lexer(t_token **token_list, char *input, char **env)
 		if (is_space(input[i]))
 			i++;
 		else if (is_quote(input[i]))
-			i = handle_quotes(token_list, input, i);
+			i = handle_quotes(token_list, input, i, env);
 		else if (is_operator(input[i]))
 			i = handle_operators(token_list, input, i);
 		else if (is_dsign(input[i]))

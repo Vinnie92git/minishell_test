@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:12:25 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 14:46:24 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:31:18 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (a == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len && s[start] != '\0')
+	while (i < len && s[start])
 	{
 		a[i] = s[start];
 		i++;

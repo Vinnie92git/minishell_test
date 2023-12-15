@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 14:46:31 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:50:16 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**copy_env(char **envp);
 
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);
-int		handle_quotes(t_token **token_list, char *input, int i);
+int		handle_quotes(t_token **token_list, char *input, int i, char **env);
 int		handle_operators(t_token **token_list, char *input, int i);
 int		handle_words(t_token **token_list, char *input, int i);
 int		handle_dsign(t_token **token_list, char *input, int i, char **env);
@@ -81,6 +81,7 @@ int		is_operator(char c);
 int		is_quote(char c);
 int		is_space(char c);
 int		is_dsign(char c);
+char	*quoted_dsign(char *input, int i, int end, char **env);
 
 /* ------ PARSER ------ */
 void	parser(t_token **token_list);
@@ -95,10 +96,11 @@ int		ms_check_lst(t_token *token, int type);
 
 /* ------ UTILS ------ */
 size_t	ft_strlen(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char	*s1);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*find_var(char *var, char **env);
+char	*ft_strchr(char *s, int c);
 // void	*ft_memset(void *b, int c, size_t len);
 
 /* ------ ERROR ------ */
