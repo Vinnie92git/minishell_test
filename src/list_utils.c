@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 13:19:25 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:07:08 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ms_check_lst(t_token *token, int type)
 {
-	while (token && token->content != NULL)
+	while (token)
 	{
 		if (token->type == type)
 			return (printf("requested type found\n"));
@@ -25,7 +25,7 @@ int	ms_check_lst(t_token *token, int type)
 
 void	ms_print_lst(t_token *token)
 {
-	while (token && token->content != NULL)
+	while (token)
 	{
 		printf("token = -%s- type = -%d-\n", token->content, token->type);
 		token = token->next;

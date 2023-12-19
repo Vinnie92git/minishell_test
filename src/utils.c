@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 13:12:25 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/15 12:31:18 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/19 22:09:49 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*find_var(char *var, char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(var, env[i], ft_strlen(var)))
-			return (env[i] + (ft_strlen(var) + 1));
-		i++;
-	}
-	return (NULL);
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -92,19 +78,3 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-
-// void	*ft_memset(void *b, int c, size_t len)
-// {
-// 	unsigned int	i;
-// 	unsigned char	*cast_b;
-
-// 	cast_b = (unsigned char *)b;
-// 	i = 0;
-// 	while (len > 0)
-// 	{
-// 		cast_b[i] = (unsigned char)c;
-// 		i++;
-// 		len--;
-// 	}
-// 	return (cast_b);
-// }

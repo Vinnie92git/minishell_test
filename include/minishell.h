@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/15 14:50:16 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/18 22:08:46 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,10 @@ enum e_tokens {
 enum e_quotes {
 	SINGLE_QUOTE = 8,
 	DOUBLE_QUOTE,
-	SQ_WORD,
-	DQ_WORD
 };
 
 enum e_error {
-	INIT_INT = 12,
+	INIT_INT = 10,
 	QUOTING_ERR,
 	READLINE_ERR
 };
@@ -81,7 +79,8 @@ int		is_operator(char c);
 int		is_quote(char c);
 int		is_space(char c);
 int		is_dsign(char c);
-char	*quoted_dsign(char *input, int i, int end, char **env);
+char	*quoted_dsign(char *str, char **env);
+// char	*expand_quotes(char *str, char **vars, char **varnames);
 
 /* ------ PARSER ------ */
 void	parser(t_token **token_list);
@@ -100,8 +99,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char	*s1);
 char	*find_var(char *var, char **env);
-char	*ft_strchr(char *s, int c);
-// void	*ft_memset(void *b, int c, size_t len);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);

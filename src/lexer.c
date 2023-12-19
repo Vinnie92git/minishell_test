@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/15 14:41:59 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:07:11 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,26 +74,23 @@ int	handle_operators(t_token **token_list, char *input, int i)
 int	handle_quotes(t_token **token_list, char *input, int i, char **env)
 {
 	t_token	*token;
+	char	*str;
 	int		end;
 	int		quote;
 
 	token = ms_lstnew();
-	end = i;
 	quote = is_quote(input[i]);
-	end++;
+	i++;
+	end = i;
 	while (input[end++] && quote != 0)
 		if (quote == is_quote(input[end]))
 			quote = 0;
+	str = ft_substr(input, i, end - i - 1);
 	if (is_quote(input[i]) == SINGLE_QUOTE)
-	{
-		token->type = SQ_WORD;
-		token->content = ft_substr(input, i, end - i);
-	}
+		token->content = str;
 	else if (is_quote(input[i]) == DOUBLE_QUOTE)
-	{
-		token->type = DQ_WORD;
-		token->content = quoted_dsign(input, i, end, env);
-	}
+		token->content = quoted_dsign(str, env);
+	token->type = WORD;
 	ms_lstadd_back(token_list, token);
 	return (end);
 }

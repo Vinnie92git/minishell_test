@@ -6,7 +6,7 @@
 #    By: vini <vini@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2023/12/04 21:24:43 by vini             ###   ########.fr        #
+#    Updated: 2023/12/18 19:05:33 by vini             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ NAME = minishell
 # RLINE_L		= -lreadline -L /sgoinfre/students/$(USER)/homebrew/opt/readline/lib
 
 # OBJECTS #
-SRC = main.c lexer.c lexer_utils.c list_utils.c utils.c error.c
+SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c utils.c \
+		error.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
