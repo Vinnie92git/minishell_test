@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/14 14:24:52 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:37:51 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**copy_env(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	env_cpy = (char **)malloc(sizeof(char *) + (i + 1));
+	env_cpy = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!env_cpy)
 		return (NULL);
 	i = 0;

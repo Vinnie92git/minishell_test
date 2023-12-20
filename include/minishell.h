@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/18 22:08:46 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/20 12:37:55 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		is_quote(char c);
 int		is_space(char c);
 int		is_dsign(char c);
 char	*quoted_dsign(char *str, char **env);
+char	*find_var(char *var, char **env);
 // char	*expand_quotes(char *str, char **vars, char **varnames);
 
 /* ------ PARSER ------ */
@@ -98,7 +99,8 @@ size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char	*s1);
-char	*find_var(char *var, char **env);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_join(char *dest, char *s1, char *s2);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);

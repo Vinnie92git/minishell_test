@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:31:42 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/19 22:36:19 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/20 12:19:08 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*find_var(char *varname, char **env)
 	{
 		if (!ft_strncmp(varname, env[i], ft_strlen(varname)) &&
 			env[i][ft_strlen(varname)] == '=')
-			return (env[i] + (ft_strlen(var) + 1));
+			return (env[i] + (ft_strlen(varname) + 1));
 		i++;
 	}
 	return (NULL);
@@ -37,6 +37,8 @@ char	*quoted_dsign(char *str, char **env)
 	int		j;
 
 	expanded = malloc(sizeof(char) * 1024);
+	if (expanded == NULL)
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[i])
@@ -48,9 +50,13 @@ char	*quoted_dsign(char *str, char **env)
 			while (str[i] && !is_space(str[i]) && !is_operator(str[i])
 				&& !is_quote(str[i]) && !is_dsign(str[i]))
 				i++;
-			varname = ft_substr(str, i, i - start);
+			varname = ft_substr(str, start, i - start);
 			var = find_var(varname, env);
-			
+			if (var != NULL)
+			{
+				expanded = ft_strjoin(expanded, var);
+				j += ft_strlen(var);
+			}
 		}
 		else
 			expanded[j++] = str[i++];

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vini <vini@student.42.fr>                  +#+  +:+       +#+         #
+#    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2023/12/18 19:05:33 by vini             ###   ########.fr        #
+#    Updated: 2023/12/20 11:10:10 by vipalaci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ NAME = minishell
 
 # OBJECTS #
 SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c utils.c \
-		error.c
+		utils_2.c error.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/18 18:07:11 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/20 12:17:17 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	handle_dsign(t_token **token_list, char *input, int i, char **env)
 {
 	t_token	*token;
-	char	*var;
+	char	*varname;
 	int		end;
 
 	token = ms_lstnew();
@@ -29,10 +29,8 @@ int	handle_dsign(t_token **token_list, char *input, int i, char **env)
 	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
 		&& !is_quote(input[end]) && !is_dsign(input[end]))
 		end++;
-	var = ft_substr(input, i, end - i);
-	token->content = find_var(var, env);
-	// if (!token->content)
-	// 	var_exp_error();
+	varname = ft_substr(input, i, end - i);
+	token->content = find_var(varname, env);
 	ms_lstadd_back(token_list, token);
 	return (end);
 }
@@ -80,12 +78,11 @@ int	handle_quotes(t_token **token_list, char *input, int i, char **env)
 
 	token = ms_lstnew();
 	quote = is_quote(input[i]);
-	i++;
 	end = i;
 	while (input[end++] && quote != 0)
 		if (quote == is_quote(input[end]))
 			quote = 0;
-	str = ft_substr(input, i, end - i - 1);
+	str = ft_substr(input, i, end - i);
 	if (is_quote(input[i]) == SINGLE_QUOTE)
 		token->content = str;
 	else if (is_quote(input[i]) == DOUBLE_QUOTE)
@@ -113,6 +110,5 @@ int	lexer(t_token **token_list, char *input, char **env)
 		else
 			i = handle_words(token_list, input, i);
 	}
-	// ms_print_lst(*token_list);
 	return (0);
 }
