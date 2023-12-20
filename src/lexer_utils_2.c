@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:31:42 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/20 12:19:08 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/20 14:03:10 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,80 +64,3 @@ char	*quoted_dsign(char *str, char **env)
 	expanded[j] = '\0';
 	return (expanded);
 }
-
-// char	*quoted_dsign(char *str, char **env)
-// {
-// 	char	**varnames;
-// 	char	**vars;
-// 	int		i;
-// 	int		j;
-// 	int		end;
-
-// 	i = 0;
-// 	j = 0;
-// 	end = 0;
-// 	while (str[i++])
-// 		if (is_dsign(str[i]))
-// 			return (str);
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		while (str[i] != '$')
-// 			i++;
-// 		i++;
-// 		end = i;
-// 		while (str[i] && !is_space(str[i]) && !is_operator(str[i])
-// 			&& !is_quote(str[i]) && !is_dsign(str[i]))
-// 			end++;
-// 		varnames[j] = ft_substr(str, i, end - i);
-// 		j++;
-// 		i = end;
-// 	}
-// 	varnames[j] = '\0';
-// 	j = 0;
-// 	while (varnames[j])
-// 	{
-// 		vars[j] = find_var(varnames[j], env);
-// 		j++;
-// 	}
-// 	return (expand_quotes(str, vars, varnames));
-// }
-
-// char	*expand_quotes(char *str, char **vars, char **varnames)
-// {
-// 	char	*expanded;
-// 	int		sum_1;
-// 	int		sum_2;
-// 	int		i;
-// 	int		j;
-// 	int		k;
-
-// 	sum_1 = 0;
-// 	sum_2 = 0;
-// 	i = 0;
-// 	j = 0;
-// 	k = 0;
-// 	while (varnames[i])
-// 	{
-// 		sum_1 += ft_strlen(varnames[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-	
-// 	expanded = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(var) - sum));
-// 	while (str[i])
-// 	{
-// 		while (str[i] != '$')
-// 		{
-// 			expanded[j] = str[i];
-// 			i++;
-// 			j++;
-// 		}
-// 		while (var[k])
-// 		{
-// 			expanded[j] = var[k]
-// 			k++;
-// 			j++;
-// 		}
-// 	}
-// }
