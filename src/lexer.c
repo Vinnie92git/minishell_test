@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/20 12:17:17 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:35:52 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ int	handle_dsign(t_token **token_list, char *input, int i, char **env)
 	int		end;
 
 	token = ms_lstnew();
-	// if (input[i + 1] == '?')
-	// {
-	// 	get_signal();
-	// 	return (i + 2);
-	// }
 	i++;
 	end = i;
 	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
@@ -82,6 +77,8 @@ int	handle_quotes(t_token **token_list, char *input, int i, char **env)
 	while (input[end++] && quote != 0)
 		if (quote == is_quote(input[end]))
 			quote = 0;
+	if (quote)
+		return (QUOTING_ERR);
 	str = ft_substr(input, i, end - i);
 	if (is_quote(input[i]) == SINGLE_QUOTE)
 		token->content = str;
@@ -102,7 +99,11 @@ int	lexer(t_token **token_list, char *input, char **env)
 		if (is_space(input[i]))
 			i++;
 		else if (is_quote(input[i]))
+		{
 			i = handle_quotes(token_list, input, i, env);
+			if (i == QUOTING_ERR)
+				return (i);
+		}
 		else if (is_operator(input[i]))
 			i = handle_operators(token_list, input, i);
 		else if (is_dsign(input[i]))
@@ -110,5 +111,5 @@ int	lexer(t_token **token_list, char *input, char **env)
 		else
 			i = handle_words(token_list, input, i);
 	}
-	return (0);
+	return (1);
 }

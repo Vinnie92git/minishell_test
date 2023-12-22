@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/13 21:14:21 by vini             ###   ########.fr       */
+/*   Updated: 2023/12/22 10:43:50 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,4 @@ void	panic(int err, t_token **list, t_token *token)
 		ms_lstclear(list);
 	if (token)
 		free(token);
-	exit (1);
 }

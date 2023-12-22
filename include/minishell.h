@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/20 14:02:33 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:38:22 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		is_space(char c);
 int		is_dsign(char c);
 char	*quoted_dsign(char *str, char **env);
 char	*find_var(char *var, char **env);
-// char	*expand_quotes(char *str, char **vars, char **varnames);
 
 /* ------ PARSER ------ */
 void	parser(t_token **token_list);

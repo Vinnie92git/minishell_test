@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/20 12:37:51 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/22 10:56:46 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*token_list;
 	char	*cmd_line;
 	char	**env_cpy;
+	int		err;
 
 	(void)argv;
 	(void)argc;
@@ -50,9 +51,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!cmd_line)
 			panic(READLINE_ERR, NULL, NULL);
 		cmd_line[ft_strlen(cmd_line)] = '\0';
-		lexer(&token_list, cmd_line, env_cpy);
+		err = lexer(&token_list, cmd_line, env_cpy);
+		if (err != 1)
+			panic (err, NULL, NULL);
 		add_history(cmd_line);
-		// ms_check_lst(token_list, PIPE);
 		ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);

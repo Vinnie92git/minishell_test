@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:31:42 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/20 14:03:10 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:04:14 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*quoted_dsign(char *str, char **env)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (is_dsign(str[i]))
 		{
 			i++;
 			start = i;
