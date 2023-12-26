@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/22 11:38:22 by vipalaci         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:28:14 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		is_quote(char c);
 int		is_space(char c);
 int		is_dsign(char c);
 char	*quoted_dsign(char *str, char **env);
+char	*expand(char *source, int start, int end, char **env);
 char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 14:31:42 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/22 14:00:19 by vipalaci         ###   ########.fr       */
+/*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
+/*   Updated: 2023/12/26 22:15:39 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*find_var(const char *varname, const char **env)
+char	*find_var(char *varname, char **env)
 {
 	int	i;
 
@@ -27,41 +27,69 @@ char	*find_var(const char *varname, const char **env)
 	return ("");
 }
 
-char	*quoted_dsign_all(const char *str, const char **env)
+char	*expand(char *source, int start, int end, char **env)
 {
-	char	*expanded;
+	char	*expand;
 	char	*varname;
 	char	*var;
-	int		start;
 	int		i;
 	int		j;
-
+	
+	expand = NULL;
+	varname = ft_substr(source, start, end - start);
+	var = find_var(varname, env);
+	free (varname);
+	expand = malloc(sizeof(char) * (ft_strlen(source) + ft_strlen(var) + 1));
+	if (expand == NULL)
+		return (NULL);
 	i = 0;
 	j = 0;
-	while (str[i])
+	while (j < start - 1)
 	{
-		if (is_dsign(str[i]))
+		expand[j] = source[j];
+		j++;
+	}
+	while (var[i])
+	{
+		expand[j] = var[i];
+		j++;
+		i++;;
+	}
+	while (source[end])
+	{
+		expand[j] = source[end];
+		j++;
+		end++;
+	}
+	expand[j] = '\0';
+	return (expand);
+}
+
+char	*quoted_dsign(char *str, char **env)
+{
+	char	*expanded;
+	char	*temp;
+	int		start;
+	int		end;
+
+	expanded = ft_strdup(str);
+	start = 0;
+	while (expanded[start])
+	{
+		if (is_dsign(expanded[start]))
 		{
-			i++;
-			start = i;
-			while (str[i] && !is_space(str[i]) && !is_operator(str[i])
-				&& !is_quote(str[i]) && !is_dsign(str[i]))
-				i++;
-			varname = ft_substr(str, start, i - start);
-			var = find_var(varname, env);
-			if (var != NULL)
-			{
-				expanded = ft_strjoin(expanded, var);
-				j += ft_strlen(var);
-			}
+			start++;
+			end = start;
+			while (expanded[end] && !is_space(expanded[end]) && !is_operator(expanded[end])
+				&& !is_quote(expanded[end]) && !is_dsign(expanded[end]))
+				end++;
+			temp = expand(expanded, start, end, env);
+			free(expanded);
+			expanded = temp;
+			start--;
 		}
 		else
-		{
-			expanded[j] = str[i];
-			j++;
-			i++;
-		}
+			start++;
 	}
-	expanded[j] = '\0';
 	return (expanded);
 }
