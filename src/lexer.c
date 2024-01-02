@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/22 11:35:52 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:30:12 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	handle_quotes(t_token **token_list, char *input, int i, char **env)
 		token->content = str;
 	else if (is_quote(input[i]) == DOUBLE_QUOTE)
 		token->content = quoted_dsign(str, env);
-	token->type = WORD;
+	token->type = QUOTED_WORD;
 	ms_lstadd_back(token_list, token);
 	return (end);
 }

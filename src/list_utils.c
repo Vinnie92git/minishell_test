@@ -6,22 +6,13 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/18 17:07:08 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/02 23:18:14 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ms_check_lst(t_token *token, int type)
-{
-	while (token)
-	{
-		if (token->type == type)
-			return (printf("requested type found\n"));
-		token = token->next;
-	}
-	return (printf("requested type NOT found\n"));
-}
+
 
 void	ms_print_lst(t_token *token)
 {
@@ -30,6 +21,21 @@ void	ms_print_lst(t_token *token)
 		printf("token = -%s- type = -%d-\n", token->content, token->type);
 		token = token->next;
 	}
+}
+
+t_scmd	*ms_lstnew_cmd(char *content)
+{
+	t_scmd	*new;
+
+	new = NULL;
+	new = malloc(sizeof(t_scmd));
+	if (new == NULL)
+		return (NULL);
+	new->cmd = ft_strdup(content);
+	new->cmd_args = NULL;
+	new->arg_count = 0;
+	new->next = NULL;
+	return (new);
 }
 
 t_token	*ms_lstnew(void)

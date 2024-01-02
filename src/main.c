@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/22 10:56:46 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:12:30 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ms_check_lst(t_token *token, int type)
+{
+	while (token)
+	{
+		if (token->type == type)
+			return (printf("requested type found\n"));
+		token = token->next;
+	}
+	return (printf("requested type NOT found\n"));
+}
 
 char	**copy_env(char **envp)
 {
@@ -36,6 +47,7 @@ char	**copy_env(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_token	*token_list;
+	t_scmd	*scmds_list;
 	char	*cmd_line;
 	char	**env_cpy;
 	int		err;
@@ -55,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		if (err != 1)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
+		// parser(token_list, &scmds_list);
 		ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);

@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2023/12/26 21:28:14 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/02 22:36:45 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 /* ------ STRUCTS ------ */
 typedef struct s_token	t_token;
+typedef struct s_scmd	t_scmd;
 
 typedef struct s_token
 {
@@ -38,6 +39,14 @@ typedef struct s_token
 	char			*content;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_scmd
+{
+	char			*cmd;
+	char			**cmd_args;
+	int				arg_count;
+	struct s_scmd	*next;
+}	t_scmd;
 
 /* ------ ENUMS ------ */
 enum e_boolean {
@@ -51,22 +60,24 @@ enum e_tokens {
 	HEREDOC,
 	APPEND,
 	PIPE,
-	WORD
+	WORD,
+	QUOTED_WORD
 };
 
 enum e_quotes {
-	SINGLE_QUOTE = 8,
-	DOUBLE_QUOTE,
+	SINGLE_QUOTE = 9,
+	DOUBLE_QUOTE
 };
 
 enum e_error {
-	INIT_INT = 10,
+	INIT_INT = 11,
 	QUOTING_ERR,
 	READLINE_ERR
 };
 
 /* ------ MAIN ------ */
 char	**copy_env(char **envp);
+int		ms_check_lst(t_token *token, int type);
 
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);
@@ -84,15 +95,14 @@ char	*expand(char *source, int start, int end, char **env);
 char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
-void	parser(t_token **token_list);
-void	parse_cmd(t_token **token_list);
+void	parse(t_token *token, t_scmd **scmds_list);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
+t_scmd	*ms_lstnew_cmd(void);
 void	ms_lstadd_back(t_token **list, t_token *new);
 void	ms_lstclear(t_token **list);
 void	ms_print_lst(t_token *token);
-int		ms_check_lst(t_token *token, int type);
 
 /* ------ UTILS ------ */
 size_t	ft_strlen(const char *str);
