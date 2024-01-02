@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
-/*   Updated: 2023/12/26 22:15:39 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/02 18:18:40 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*expand(char *source, int start, int end, char **env)
 	int		i;
 	int		j;
 	
-	expand = NULL;
 	varname = ft_substr(source, start, end - start);
 	var = find_var(varname, env);
 	free (varname);
@@ -50,17 +49,9 @@ char	*expand(char *source, int start, int end, char **env)
 		j++;
 	}
 	while (var[i])
-	{
-		expand[j] = var[i];
-		j++;
-		i++;;
-	}
+		expand[j++] = var[i++];
 	while (source[end])
-	{
-		expand[j] = source[end];
-		j++;
-		end++;
-	}
+		expand[j++] = source[end++];
 	expand[j] = '\0';
 	return (expand);
 }
