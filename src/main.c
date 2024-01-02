@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/02 22:12:30 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/02 23:54:52 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**copy_env(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_token	*token_list;
-	t_scmd	*scmds_list;
+	// t_scmd	*scmds_list;
 	char	*cmd_line;
 	char	**env_cpy;
 	int		err;
