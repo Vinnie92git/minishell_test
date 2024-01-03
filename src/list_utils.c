@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/02 23:18:14 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/03 14:52:10 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	ms_print_lst(t_token *token)
 	}
 }
 
-t_scmd	*ms_lstnew_cmd(char *content)
-{
-	t_scmd	*new;
+// t_scmd	*ms_lstnew_cmd(char *content)
+// {
+// 	t_scmd	*new;
 
-	new = NULL;
-	new = malloc(sizeof(t_scmd));
-	if (new == NULL)
-		return (NULL);
-	new->cmd = ft_strdup(content);
-	new->cmd_args = NULL;
-	new->arg_count = 0;
-	new->next = NULL;
-	return (new);
-}
+// 	new = NULL;
+// 	new = malloc(sizeof(t_scmd));
+// 	if (new == NULL)
+// 		return (NULL);
+// 	new->cmd = ft_strdup(content);
+// 	new->cmd_args = NULL;
+// 	new->arg_count = 0;
+// 	new->next = NULL;
+// 	return (new);
+// }
 
 t_token	*ms_lstnew(void)
 {

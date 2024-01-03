@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/02 22:36:45 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/03 14:51:56 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	parse(t_token *token, t_scmd **scmds_list);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
-t_scmd	*ms_lstnew_cmd(void);
+// t_scmd	*ms_lstnew_cmd(void);
 void	ms_lstadd_back(t_token **list, t_token *new);
 void	ms_lstclear(t_token **list);
 void	ms_print_lst(t_token *token);
