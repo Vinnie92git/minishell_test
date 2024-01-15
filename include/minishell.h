@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 14:08:29 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:05:20 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ enum e_error {
 /* ------ MAIN ------ */
 char	**copy_env(char **envp);
 int		ms_check_lst(t_token *token, int type);
+void	ms_print_lst(t_token *token);
+void	ms_print_cmdlst(t_scmd *sequence);
 
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);
@@ -95,14 +97,16 @@ char	*expand(char *source, int start, int end, char **env);
 char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
-void	parse(t_token *token, t_scmd **scmds_list);
+// void	parse(t_token *token, t_scmd **scmds_list);
+t_token	*create_cmd(t_token *token, t_scmd **scmds_list);
+int		build_cmdlist(t_token **token_list, t_scmd **scmds_list);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
-// t_scmd	*ms_lstnew_cmd(void);
+t_scmd	*ms_cmdnew(void);
+void	ms_cmdadd_back(t_scmd **list, t_scmd *new);
 void	ms_lstadd_back(t_token **list, t_token *new);
 void	ms_lstclear(t_token **list);
-void	ms_print_lst(t_token *token);
 
 /* ------ UTILS ------ */
 size_t	ft_strlen(const char *str);

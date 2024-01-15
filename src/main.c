@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 14:51:18 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:26:32 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,22 @@ void	ms_print_lst(t_token *token)
 	}
 }
 
-// void	ms_print_cmdlst(t_scmd *command)
-// {
-// 	while (command)
-// 	{
-// 		printf("\n", );
-// 		command = command->next;
-// 	}
-// }
+void	ms_print_cmdlst(t_scmd *sequence)
+{
+	int	i;
+	
+	while (sequence)
+	{
+		i = 0;
+		printf("--word sequence between pipes--\n");
+		while (sequence->args[i])
+		{
+			printf("%s\n", sequence->args[i]);
+			i++;
+		}
+		sequence = sequence->next;
+	}
+}
 
 char	**copy_env(char **envp)
 {
@@ -65,7 +73,7 @@ char	**copy_env(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_token	*token_list;
-	// t_scmd	*scmds_list;
+	t_scmd	*scmds_list;
 	char	*cmd_line;
 	char	**env_cpy;
 	int		err;
@@ -73,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	token_list = NULL;
-	// scmds_list = NULL;
+	scmds_list = NULL;
 	cmd_line = NULL;
 	env_cpy = copy_env(envp);
 	while (1)
@@ -86,8 +94,10 @@ int	main(int argc, char **argv, char **envp)
 		if (err != 1)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
+		err = build_cmdlist(&token_list, &scmds_list);
+		ms_print_cmdlst(scmds_list);
 		// parser(&token_list, &scmds_list);
-		ms_print_lst(token_list);
+		// ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
 	}
