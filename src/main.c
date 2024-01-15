@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 11:39:53 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:51:43 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int	ms_check_lst(t_token *token, int type)
 		token = token->next;
 	}
 	return (printf("requested type NOT found\n"));
+}
+
+void	ms_print_lst(t_token *token)
+{
+	while (token)
+	{
+		printf("token = -%s- type = -%d-\n", token->content, token->type);
+		token = token->next;
+	}
 }
 
 char	**copy_env(char **envp)

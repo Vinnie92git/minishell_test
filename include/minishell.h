@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/03 14:51:56 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/15 14:08:29 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ typedef struct s_token
 
 typedef struct s_scmd
 {
-	char			*cmd;
-	char			**cmd_args;
 	int				arg_count;
+	char			**args;
 	struct s_scmd	*next;
 }	t_scmd;
 
@@ -72,7 +71,8 @@ enum e_quotes {
 enum e_error {
 	INIT_INT = 11,
 	QUOTING_ERR,
-	READLINE_ERR
+	READLINE_ERR,
+	PARSE_ERR
 };
 
 /* ------ MAIN ------ */

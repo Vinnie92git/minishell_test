@@ -3,40 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/03 14:52:10 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/15 13:57:05 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-
-
-void	ms_print_lst(t_token *token)
+t_scmd	*ms_cmdnew(void)
 {
-	while (token)
-	{
-		printf("token = -%s- type = -%d-\n", token->content, token->type);
-		token = token->next;
-	}
+	t_scmd	*new;
+
+	new = NULL;
+	new = malloc(sizeof(t_scmd));
+	if (new == NULL)
+		return (NULL);
+	new->arg_count = 0;
+	new->args = NULL;
+	new->next = NULL;
+	return (new);
 }
 
-// t_scmd	*ms_lstnew_cmd(char *content)
-// {
-// 	t_scmd	*new;
+void	ms_cmdadd_back(t_scmd **list, t_scmd *new)
+{
+	t_scmd	*aux;
 
-// 	new = NULL;
-// 	new = malloc(sizeof(t_scmd));
-// 	if (new == NULL)
-// 		return (NULL);
-// 	new->cmd = ft_strdup(content);
-// 	new->cmd_args = NULL;
-// 	new->arg_count = 0;
-// 	new->next = NULL;
-// 	return (new);
-// }
+	aux = *list;
+	if (*list == NULL)
+	{
+		*list = new;
+		return ;
+	}
+	else
+	{
+		while (aux->next != NULL)
+			aux = aux->next;
+		aux->next = new;
+	}
+}
 
 t_token	*ms_lstnew(void)
 {
