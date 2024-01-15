@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/02 23:54:52 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/15 11:39:53 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	token_list = NULL;
+	// scmds_list = NULL;
 	cmd_line = NULL;
 	env_cpy = copy_env(envp);
 	while (1)
@@ -67,7 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		if (err != 1)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
-		// parser(token_list, &scmds_list);
+		// parser(&token_list, &scmds_list);
 		ms_print_lst(token_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
