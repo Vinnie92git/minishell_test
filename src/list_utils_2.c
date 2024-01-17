@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 10:46:02 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:11:50 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ms_print_cmdlst(t_scmd *sequence)
 	{
 		i = 0;
 		printf("--word sequence between pipes--\n");
-		while (sequence->args[i])
+		while (sequence->words[i])
 		{
-			printf("%s\n", sequence->args[i]);
+			printf("%s\n", sequence->words[i]);
 			i++;
 		}
 		sequence = sequence->next;
@@ -37,8 +37,11 @@ t_scmd	*ms_cmdnew(void)
 	new = malloc(sizeof(t_scmd));
 	if (new == NULL)
 		return (NULL);
+	new->word_count = 0;
 	new->arg_count = 0;
-	new->args = NULL;
+	new->cmd_name = NULL;
+	new->cmd_args = NULL;
+	new->words = NULL;
 	new->next = NULL;
 	return (new);
 }

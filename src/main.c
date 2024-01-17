@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 11:49:43 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:13:02 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		if (err != 1)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
-		err = build_cmdlist(&token_list, &scmds_list);
-		// parser(&token_list, &scmds_list);
+		parser(&token_list, &scmds_list);
 		ms_print_lst(token_list);
 		ms_print_cmdlst(scmds_list);
 		free(cmd_line);

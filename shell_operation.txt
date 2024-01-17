@@ -15,3 +15,16 @@ Basically, the shell does the following:
 6. Executes the command.
 
 7. Optionally waits for the command to complete and collects its exit status (see Exit Status).
+
+
+--EXECUTER--
+3.7.1 Simple Command Expansion
+When a simple command is executed, the shell performs the following expansions, assignments, and redirections, from left to right, in the following order.
+
+1. The words that the parser has marked as variable assignments (those preceding the command name) and redirections are saved for later processing.
+
+2. The words that are not variable assignments or redirections are expanded. If any words remain after expansion, the first word is taken to be the name of the command and the remaining words are the arguments.
+
+3. Redirections are performed.
+
+4. The text after the ‘=’ in each variable assignment undergoes tilde expansion, parameter expansion, command substitution, arithmetic expansion, and quote removal before being assigned to the variable.

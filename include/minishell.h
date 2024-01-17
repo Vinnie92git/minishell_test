@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 10:46:16 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:28:41 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 /* ------ STRUCTS ------ */
 typedef struct s_token	t_token;
+typedef struct s_redir	t_redir;
 typedef struct s_scmd	t_scmd;
 
 typedef struct s_token
@@ -40,10 +41,20 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_redir
+{
+	char		*in_filename;
+	char		*out_filename;
+}	t_redir;
+
 typedef struct s_scmd
 {
+	int				word_count;
 	int				arg_count;
-	char			**args;
+	char			*cmd_name;
+	char			**cmd_args;
+	char			**words;
+	t_redir			redir;
 	struct s_scmd	*next;
 }	t_scmd;
 
@@ -94,9 +105,9 @@ char	*expand(char *source, int start, int end, char **env);
 char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
-// void	parse(t_token *token, t_scmd **scmds_list);
-t_token	*create_cmd(t_token *token, t_scmd **scmds_list);
-int		build_cmdlist(t_token **token_list, t_scmd **scmds_list);
+t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
+int		build_scmdlist(t_token **token_list, t_scmd **scmds_list);
+int		parser(t_token **token_list, t_scmd **scmds_list);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
