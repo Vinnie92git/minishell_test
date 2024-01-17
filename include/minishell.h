@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 15:05:20 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:46:16 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ enum e_error {
 
 /* ------ MAIN ------ */
 char	**copy_env(char **envp);
-int		ms_check_lst(t_token *token, int type);
-void	ms_print_lst(t_token *token);
-void	ms_print_cmdlst(t_scmd *sequence);
 
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);
@@ -107,6 +104,9 @@ t_scmd	*ms_cmdnew(void);
 void	ms_cmdadd_back(t_scmd **list, t_scmd *new);
 void	ms_lstadd_back(t_token **list, t_token *new);
 void	ms_lstclear(t_token **list);
+void	ms_cmdclear(t_scmd **list);
+void	ms_print_lst(t_token *token);
+void	ms_print_cmdlst(t_scmd *sequence);
 
 /* ------ UTILS ------ */
 size_t	ft_strlen(const char *str);

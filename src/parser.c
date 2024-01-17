@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 15:27:59 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:46:48 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ t_token	*create_cmd(t_token *token, t_scmd **scmds_list)
 		simple_cmd->arg_count++;
 		aux = aux->next;
 	}
-	simple_cmd->args = malloc(sizeof(char *) * simple_cmd->arg_count);
+	simple_cmd->args = malloc(sizeof(char *) * (simple_cmd->arg_count + 1));
+	if (!simple_cmd->args)
+		return (NULL);
 	while (token && token->type != PIPE)
 	{
 		simple_cmd->args[i] = ft_strdup(token->content);
 		i++;
 		token = token->next;
 	}
-	simple_cmd->args[i] = 0;
+	simple_cmd->args[i] = NULL;
 	ms_cmdadd_back(scmds_list, simple_cmd);
 	return (token);
 }

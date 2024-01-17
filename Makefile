@@ -6,7 +6,7 @@
 #    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2024/01/15 15:05:47 by vipalaci         ###   ########.fr        #
+#    Updated: 2024/01/17 10:48:20 by vipalaci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,9 @@ CFLAGS	=	-Wall -Wextra -Werror -I ./include -I $(READLINE_DIR)/include
 NAME = minishell
 # INCLUDE = include/
 
-# # READLINE
-# RLINE_INC	= -I/sgoinfre/students/$(USER)/homebrew/opt/readline/include
-# RLINE_L		= -lreadline -L /sgoinfre/students/$(USER)/homebrew/opt/readline/lib
-
 # OBJECTS #
-SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c utils.c \
-		utils_2.c error.c parser.c
+SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c \
+		list_utils_2.c utils.c utils_2.c error.c parser.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

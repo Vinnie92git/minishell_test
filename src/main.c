@@ -6,48 +6,11 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/15 15:26:32 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:49:43 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	ms_check_lst(t_token *token, int type)
-{
-	while (token)
-	{
-		if (token->type == type)
-			return (printf("requested type found\n"));
-		token = token->next;
-	}
-	return (printf("requested type NOT found\n"));
-}
-
-void	ms_print_lst(t_token *token)
-{
-	while (token)
-	{
-		printf("token = -%s- type = -%d-\n", token->content, token->type);
-		token = token->next;
-	}
-}
-
-void	ms_print_cmdlst(t_scmd *sequence)
-{
-	int	i;
-	
-	while (sequence)
-	{
-		i = 0;
-		printf("--word sequence between pipes--\n");
-		while (sequence->args[i])
-		{
-			printf("%s\n", sequence->args[i]);
-			i++;
-		}
-		sequence = sequence->next;
-	}
-}
 
 char	**copy_env(char **envp)
 {
@@ -95,11 +58,12 @@ int	main(int argc, char **argv, char **envp)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
 		err = build_cmdlist(&token_list, &scmds_list);
-		ms_print_cmdlst(scmds_list);
 		// parser(&token_list, &scmds_list);
-		// ms_print_lst(token_list);
+		ms_print_lst(token_list);
+		ms_print_cmdlst(scmds_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
+		ms_cmdclear(&scmds_list);
 	}
 	return (0);
 }

@@ -1,44 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 11:57:51 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 10:57:21 by vipalaci         ###   ########.fr       */
+/*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
+/*   Updated: 2024/01/17 10:46:02 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ms_print_lst(t_token *token)
+void	ms_print_cmdlst(t_scmd *sequence)
 {
-	printf("--token list--\n");
-	while (token)
+	int	i;
+	
+	while (sequence)
 	{
-		printf("token = -%s- type = -%d-\n", token->content, token->type);
-		token = token->next;
+		i = 0;
+		printf("--word sequence between pipes--\n");
+		while (sequence->args[i])
+		{
+			printf("%s\n", sequence->args[i]);
+			i++;
+		}
+		sequence = sequence->next;
 	}
 }
 
-t_token	*ms_lstnew(void)
+t_scmd	*ms_cmdnew(void)
 {
-	t_token	*new;
+	t_scmd	*new;
 
 	new = NULL;
-	new = malloc(sizeof(t_token));
+	new = malloc(sizeof(t_scmd));
 	if (new == NULL)
 		return (NULL);
-	new->type = INIT_INT;
-	new->content = NULL;
+	new->arg_count = 0;
+	new->args = NULL;
 	new->next = NULL;
 	return (new);
 }
 
-void	ms_lstadd_back(t_token **list, t_token *new)
+void	ms_cmdadd_back(t_scmd **list, t_scmd *new)
 {
-	t_token	*aux;
+	t_scmd	*aux;
 
 	aux = *list;
 	if (*list == NULL)
@@ -54,9 +61,9 @@ void	ms_lstadd_back(t_token **list, t_token *new)
 	}
 }
 
-void	ms_lstclear(t_token **list)
+void	ms_cmdclear(t_scmd **list)
 {
-	t_token	*aux;
+	t_scmd	*aux;
 
 	if (list != NULL)
 	{
