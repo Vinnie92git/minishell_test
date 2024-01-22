@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 17:28:41 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:30:56 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,14 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_redir
-{
-	char		*in_filename;
-	char		*out_filename;
-}	t_redir;
+// typedef struct s_redir
+// {
+// 	char			**infiles;
+// 	char			**outfiles;
+// 	char			**heredocs;
+// 	char			**appends;
+// struct s_redir	*next;
+// }	t_redir;
 
 typedef struct s_scmd
 {
@@ -54,7 +57,6 @@ typedef struct s_scmd
 	char			*cmd_name;
 	char			**cmd_args;
 	char			**words;
-	t_redir			redir;
 	struct s_scmd	*next;
 }	t_scmd;
 

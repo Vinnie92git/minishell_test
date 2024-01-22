@@ -1,3 +1,4 @@
+--OPERATON ORDER--
 3.1.1 Shell Operation
 The following is a brief description of the shell’s operation when it reads and executes a command.
 Basically, the shell does the following:
@@ -6,7 +7,7 @@ Basically, the shell does the following:
 
 2. Breaks the input into words and operators, obeying the quoting rules described in Quoting. These tokens are separated by metacharacters. Alias expansion is performed by this step.
 
-3. Parses the tokens into simple and compound commands.
+3. Parses the tokens into simple and compound commands. (And performs pipeline connections).
 
 4. Performs the various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments.
 
@@ -28,3 +29,38 @@ When a simple command is executed, the shell performs the following expansions, 
 3. Redirections are performed.
 
 4. The text after the ‘=’ in each variable assignment undergoes tilde expansion, parameter expansion, command substitution, arithmetic expansion, and quote removal before being assigned to the variable.
+
+3.7.2 Command Search and Execution
+1. After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+
+2. If the command name contains no slashes, the shell attempts to locate it. If there exists a shell function by that name, that function is invoked as described in Shell Functions.
+
+3. If the name does not match a function, the shell searches for it in the list of shell builtins. If a match is found, that builtin is invoked.
+
+4. If the name is neither a shell function nor a builtin, and contains no slashes, Bash searches each element of $PATH for a directory containing an executable file by that name.
+
+
+--FAQ´s--
+A. Multiple redirections
+1. You cannot redirect the output of the shell multiple times and expect it to be redirected to all the locations you've specified. Instead, it will only be redirected to the last location.
+
+2. The shell processes the redirection in order of appearance. So the last one is the one that will effectvely be used.
+
+B. Pipe / Redirection precedence
+In terms of syntactic grouping, > and < have higher precedence; that is, these two commands are equivalent:
+
+sort < names | head
+( sort < names ) | head
+
+as are these two:
+
+ls | sort > out.txt
+ls | ( sort > out.txt )
+
+But in terms of sequential ordering, | is performed first; so, this command:
+
+cat in.txt > out1.txt | cat > out2.txt
+
+will populate out1.txt, not out2.txt, because the > out1.txt is performed after the |, and therefore supersedes it (so no output is piped out to cat > out2.txt).
+
+The output of each command in the pipeline is connected via a pipe to the input of the next command. That is, each command reads the previous command’s output. This connection is performed before any redirections specified by the command.
