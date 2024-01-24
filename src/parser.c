@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/22 12:37:42 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:16:20 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@
 // 		aux = aux->next;
 // 	}
 // }
+
+int	open_pipes(t_scmd **scmds_list)
+{
+	t_scmd	*aux;
+
+	aux = *scmds_list;
+	while (aux)
+	{
+		aux = aux->next;
+	}
+}
 
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list)
 {
@@ -94,64 +105,8 @@ int	parser(t_token **token_list, t_scmd **scmds_list)
 	err = build_scmdlist(token_list, scmds_list);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
-	// err = find_redir(scmds_list);
+	// err = open_pipes(scmds_list);
+	// err = handle_redir(scmds_list);
 	// err = find_cmdname(scmds_list);
 	return (err);
 }
-
-// void	parser(t_token **token_list, t_scmd **scmds_list)
-// {
-// 	t_token	*aux;
-	
-// 	aux = *token_list;
-// 	while (aux)
-// 	{
-// 		if (aux->type == PIPE)
-// 			aux = aux->next;
-// 		else if (aux->type == IN_REDIR || aux->type == OUT_REDIR)
-// 			aux = handle_redir();
-// 		else if (aux->type == WORD || aux->type == QUOTED_WORD)
-// 			aux = handle_cmds();
-// 	}
-// }
-
-// void	parse(t_token *token, t_scmd **scmds_list)
-// {
-// 	t_scmd	*simple_cmd;
-// 	t_token	*aux;
-
-// 	simple_cmd = NULL;
-// 	while (token)
-// 	{
-// 		if (token->type == PIPE)
-// 			token = token->next;
-// 		else
-// 		{
-// 			simple_cmd = ms_lstnew_cmd(token->content);
-// 			ms_lstadd_back(scmds_list, simple_cmd);
-// 			token = token->next;
-// 			aux = token;
-// 			while (aux->type != PIPE || aux->type != IN_REDIR ||
-// 			aux->type != OUT_REDIR || aux->type != HEREDOC ||
-// 			aux->type != APPEND)
-// 			{
-// 				simple_cmd->word_count++;
-// 				aux = aux->next;
-// 			}
-// 			if (simple_cmd->word_count != 0)
-// 			{
-// 				simple_cmd->cmd_words = malloc(sizeof(char *) * (simple_cmd->word_count + 1));
-// 				if (simple_cmd->cmd_words == NULL)
-// 					return (NULL);
-// 				simple_cmd->cmd_words[simple_cmd->word_count] = NULL;
-// 				simple_cmd->word_count--;
-// 				while (simple_cmd->word_count >= 0)
-// 				{
-// 					simple_cmd->cmd_words[simple_cmd->word_count] = ft_strdup(token->content);
-// 					simple_cmd->word_count--;
-// 					token = token->next;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
