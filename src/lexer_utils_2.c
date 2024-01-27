@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
-/*   Updated: 2024/01/02 18:18:40 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/27 19:05:59 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*find_var(char *varname, char **env)
 			return (env[i] + (ft_strlen(varname) + 1));
 		i++;
 	}
-	return ("");
+	return (0);
 }
 
 char	*expand(char *source, int start, int end, char **env)

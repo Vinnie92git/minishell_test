@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/24 14:16:20 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:20:51 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@
 // 	}
 // }
 
-int	open_pipes(t_scmd **scmds_list)
+void	open_pipes(t_scmd **scmds_list)
 {
 	t_scmd	*aux;
+	int		i;
 
 	aux = *scmds_list;
+	i = 0;
 	while (aux)
 	{
+		if (pipe(info->pipe[i]) < 0)
+			//error;
 		aux = aux->next;
 	}
 }

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/22 12:29:04 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:57:26 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	**copy_env(char **envp)
-{
-	char	**env_cpy;
-	int		i;
-
-	i = 0;
-	while (envp[i])
-		i++;
-	env_cpy = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!env_cpy)
-		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
-		env_cpy[i] = ft_strdup(envp[i]);
-		i++;
-	}
-	env_cpy[i] = NULL;
-	return (env_cpy);
-}
 
 int	main(int argc, char **argv, char **envp)
 {

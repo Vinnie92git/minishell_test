@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/27 18:55:30 by vini             ###   ########.fr       */
+/*   Created: 2024/01/27 18:31:16 by vini              #+#    #+#             */
+/*   Updated: 2024/01/27 19:12:42 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	panic(int err, t_token **list, t_token *token)
+char	**copy_env(char **envp)
 {
-	if (err == QUOTING_ERR)
-		printf("no closing quotes found\n");
-	else if (err == READLINE_ERR)
-		printf("readline error\n");
-	else if (err == PARSE_ERR)
-		printf("parsing error\n");
-	if (list)
-		ms_lstclear(list);
-	if (token)
-		free(token);
+	char	**env_cpy;
+	int		i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	env_cpy = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!env_cpy)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		env_cpy[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	env_cpy[i] = NULL;
+	return (env_cpy);
+}
+
+char	*get_path(char **env)
+{
+	char	*path;
+
+	path = find_var("PATH", env);
+	if (!path)
+		return (NULL);
+	return (path);
 }

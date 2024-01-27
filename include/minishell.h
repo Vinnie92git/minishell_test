@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/24 14:23:30 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:19:13 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// typedef struct s_info
-// {
-// 	int				*pipes;
-// }	t_info;
+typedef struct s_info
+{
+	int				pipe_nbr;
+	int				*pipes[2];
+	char			*path;
+	char			**bin_paths;
+	char			**env_cpy;
+}	t_info;
 
 typedef struct s_scmd
 {
@@ -86,9 +90,6 @@ enum e_error {
 	PARSE_ERR
 };
 
-/* ------ MAIN ------ */
-char	**copy_env(char **envp);
-
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input, char **env);
 int		handle_quotes(t_token **token_list, char *input, int i, char **env);
@@ -129,5 +130,9 @@ char	*ft_join(char *dest, char *s1, char *s2);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);
+
+/* ------ ENV ------ */
+char	**copy_env(char **envp);
+char	*get_path(char **env);
 
 #endif
