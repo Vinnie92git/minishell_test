@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/27 19:20:51 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/27 20:04:39 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,23 @@
 // 	}
 // }
 
-void	open_pipes(t_scmd **scmds_list)
+void	open_pipes(t_info *info)
 {
-	t_scmd	*aux;
-	int		i;
+	int	i;
 
-	aux = *scmds_list;
 	i = 0;
-	while (aux)
+	if (info->pipe_nbr > 0)
+		info->pipes = malloc(sizeof(int *) * pipe_nbr)
+	if (!info->pipes)
 	{
-		if (pipe(info->pipe[i]) < 0)
+		//error;
+		return ;
+	}
+	while (i < info->pipe_nbr)
+	{
+		if (pipe(info->pipes[i]) < 0)
 			//error;
-		aux = aux->next;
+		i++;
 	}
 }
 
@@ -79,11 +84,13 @@ t_token	*create_scmd(t_token *token, t_scmd **scmds_list)
 	return (token);
 }
 
-int	build_scmdlist(t_token **token_list, t_scmd **scmds_list)
+int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
 {
 	t_token	*aux;
+	int		cmd_nbr;
 	
 	aux = *token_list;
+	cmd_nbr = 0;
 	if (aux->type == PIPE)
 		return (PARSE_ERR);
 	while (aux)
@@ -97,19 +104,21 @@ int	build_scmdlist(t_token **token_list, t_scmd **scmds_list)
 				return (PARSE_ERR);
 		}
 		aux = create_scmd(aux, scmds_list);
+		cmd_nbr++;
 	}
+	info->pipe_nbr = cmd_nbr - 1;
 	return (1);
 }
 
-int	parser(t_token **token_list, t_scmd **scmds_list)
+int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 {
 	// t_redir	*redir_list;
 	int	err;
 
-	err = build_scmdlist(token_list, scmds_list);
+	err = build_scmdlist(token_list, scmds_list, info);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
-	// err = open_pipes(scmds_list);
+	// err = open_pipes(info);
 	// err = handle_redir(scmds_list);
 	// err = find_cmdname(scmds_list);
 	return (err);
