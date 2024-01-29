@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:30:55 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 14:11:19 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:18:54 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_redir(int type)
 int	check_pipe(t_token *token)
 {
 	if (!token)
-		return  (0);
+		return (0);
 	if (token->type == PIPE)
 		return (0);
 	return (1);
@@ -32,7 +32,7 @@ int	check_pipe(t_token *token)
 int	check_redir(t_token *token)
 {
 	if (!token)
-		return  (0);
+		return (0);
 	if (is_redir(token->type))
 		return (0);
 	return (1);
