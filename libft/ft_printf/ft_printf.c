@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vinni <vinni@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:02:32 by vinni             #+#    #+#             */
-/*   Updated: 2023/04/10 19:10:53 by vinni            ###   ########.fr       */
+/*   Updated: 2024/01/29 13:08:21 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_printf(const char *str, ...)
 	va_list	args;
 	int		print_len;
 	int		i;
-	
+
 	va_start(args, str);
 	print_len = 0;
 	i = 0;

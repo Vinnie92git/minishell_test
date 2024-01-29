@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/17 17:11:50 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:38:18 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ms_print_cmdlst(t_scmd *sequence)
 {
 	int	i;
-	
+
 	while (sequence)
 	{
 		i = 0;

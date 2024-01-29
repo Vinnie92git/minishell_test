@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
-/*   Updated: 2024/01/27 19:05:59 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/29 12:37:35 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	*find_var(char *varname, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(varname, env[i], ft_strlen(varname)) &&
-			env[i][ft_strlen(varname)] == '=')
+		if (!ft_strncmp(varname, env[i], ft_strlen(varname))
+			&& env[i][ft_strlen(varname)] == '=')
 			return (env[i] + (ft_strlen(varname) + 1));
 		i++;
 	}
@@ -34,7 +34,7 @@ char	*expand(char *source, int start, int end, char **env)
 	char	*var;
 	int		i;
 	int		j;
-	
+
 	varname = ft_substr(source, start, end - start);
 	var = find_var(varname, env);
 	free (varname);

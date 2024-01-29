@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/27 19:19:13 by vini             ###   ########.fr       */
+/*   Updated: 2024/01/29 13:50:12 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 /* --- LIBRARIES --- */
+# include "../libft/include/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -31,7 +32,7 @@
 
 /* ------ STRUCTS ------ */
 typedef struct s_token	t_token;
-typedef struct s_redir	t_redir;
+typedef struct s_info	t_info;
 typedef struct s_scmd	t_scmd;
 
 typedef struct s_token
@@ -44,7 +45,7 @@ typedef struct s_token
 typedef struct s_info
 {
 	int				pipe_nbr;
-	int				*pipes[2];
+	int				*pipes;
 	char			*path;
 	char			**bin_paths;
 	char			**env_cpy;
@@ -63,12 +64,14 @@ typedef struct s_scmd
 }	t_scmd;
 
 /* ------ ENUMS ------ */
-enum e_boolean {
+enum e_boolean
+{
 	FALSE = 0,
 	TRUE,
 };
 
-enum e_tokens {
+enum e_tokens
+{
 	IN_REDIR = 2,
 	OUT_REDIR,
 	HEREDOC,
@@ -78,12 +81,14 @@ enum e_tokens {
 	QUOTED_WORD
 };
 
-enum e_quotes {
+enum e_quotes
+{
 	SINGLE_QUOTE = 9,
 	DOUBLE_QUOTE
 };
 
-enum e_error {
+enum e_error
+{
 	INIT_INT = 11,
 	QUOTING_ERR,
 	READLINE_ERR,
@@ -107,8 +112,12 @@ char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
-int		build_scmdlist(t_token **token_list, t_scmd **scmds_list);
-int		parser(t_token **token_list, t_scmd **scmds_list);
+int		build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info);
+int		is_redir(int type);
+int		check_pipe(t_token *token);
+int		check_redir(t_token *token);
+int		check_syntax(t_token **token_list);
+int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
@@ -121,12 +130,12 @@ void	ms_print_lst(t_token *token);
 void	ms_print_cmdlst(t_scmd *sequence);
 
 /* ------ UTILS ------ */
-size_t	ft_strlen(const char *str);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char	*s1);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_join(char *dest, char *s1, char *s2);
+// size_t	ft_strlen(const char *str);
+// int		ft_strncmp(const char *s1, const char *s2, size_t n);
+// char	*ft_substr(char const *s, unsigned int start, size_t len);
+// char	*ft_strdup(const char	*s1);
+// char	*ft_strjoin_ms(char *s1, char *s2);
+// char	*ft_join_ms(char *dest, char *s1, char *s2);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);
