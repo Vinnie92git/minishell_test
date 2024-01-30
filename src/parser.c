@@ -6,39 +6,11 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 13:55:58 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:24:28 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-t_token	*create_scmd(t_token *token, t_scmd **scmds_list)
-{
-	t_scmd	*simple_cmd;
-	t_token	*aux;
-	int		i;
-
-	simple_cmd = ms_cmdnew();
-	aux = token;
-	i = 0;
-	while (aux && aux->type != PIPE)
-	{
-		simple_cmd->word_count++;
-		aux = aux->next;
-	}
-	simple_cmd->words = malloc(sizeof(char *) * (simple_cmd->word_count + 1));
-	if (!simple_cmd->words)
-		return (NULL);
-	while (token && token->type != PIPE)
-	{
-		simple_cmd->words[i] = ft_strdup(token->content);
-		i++;
-		token = token->next;
-	}
-	simple_cmd->words[i] = NULL;
-	ms_cmdadd_back(scmds_list, simple_cmd);
-	return (token);
-}
 
 int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
 {
@@ -55,6 +27,34 @@ int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
 		cmd_nbr++;
 	}
 	info->pipe_nbr = cmd_nbr - 1;
+	return (1);
+}
+
+int	check_syntax(t_token **token_list)
+{
+	t_token	*aux;
+
+	aux = *token_list;
+	if (aux->type == PIPE)
+		return (PARSE_ERR);
+	while (aux)
+	{
+		if (aux->type == PIPE)
+		{
+			aux = aux->next;
+			if (!check_pipe(aux))
+				return (PARSE_ERR);
+		}
+		else if (is_redir(aux->type))
+		{
+			aux = aux->next;
+			if (!check_redir(aux))
+				return (PARSE_ERR);
+			if (aux->type == PIPE)
+				return (PARSE_ERR);
+		}
+		aux = aux->next;
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 14:26:21 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:26:22 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_scmd
 	int				arg_count;
 	char			*cmd_name;
 	char			**cmd_args;
-	char			**words;
+	t_token			*wordlist;
 	struct s_scmd	*next;
 }	t_scmd;
 
@@ -110,6 +110,7 @@ char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
+void	create_node(t_token *token, t_token **wordlist);
 int		build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info);
 int		is_redir(int type);
 int		check_pipe(t_token *token);
@@ -128,10 +129,6 @@ void	ms_print_lst(t_token *token);
 void	ms_print_cmdlst(t_scmd *sequence);
 
 /* ------ UTILS ------ */
-// size_t	ft_strlen(const char *str);
-// int		ft_strncmp(const char *s1, const char *s2, size_t n);
-// char	*ft_substr(char const *s, unsigned int start, size_t len);
-// char	*ft_strdup(const char	*s1);
 // char	*ft_strjoin_ms(char *s1, char *s2);
 // char	*ft_join_ms(char *dest, char *s1, char *s2);
 
