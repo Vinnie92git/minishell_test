@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 13:50:12 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:26:21 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ typedef struct s_info
 
 typedef struct s_scmd
 {
-	int				infile;
-	int				oufile;
 	int				word_count;
 	int				arg_count;
 	char			*cmd_name;
