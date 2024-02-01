@@ -6,11 +6,38 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/30 15:24:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:54:34 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	handle_redir(t_scmd **scmds_list)
+{
+	t_scmd	*aux_cmd;
+	t_token	*aux_wlist;
+	int		err;
+	
+	aux_cmd = *scmds_list;
+	err = 1;
+	while (aux_cmd)
+	{
+		aux_wlist = aux_cmd->wordlist;
+		while (aux_wlist)
+		{
+			if (aux_wlist->type == IN_REDIR)
+			{
+				aux_wlist = aux_wlist->next;
+				aux_cmd->infile = open(aux_wlist->content, O_RDONLY);
+				if (aux_cmd->infile < 0)
+					return (INFILE_ERR);
+			}
+			aux_wlist = aux_wlist->next;
+		}
+		aux_cmd = aux_cmd->next;
+	}
+	return (err);
+}
 
 int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
 {

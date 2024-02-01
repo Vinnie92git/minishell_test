@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 10:50:55 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:54:44 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	info.env_cpy = copy_env(envp);
 	while (1)
 	{
-		cmd_line = readline("minishell-0.2$ ");
+		cmd_line = readline("minishell-0.3$ ");
 		if (!cmd_line)
 			panic(READLINE_ERR, NULL, NULL);
 		cmd_line[ft_strlen(cmd_line)] = '\0';
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 		if (err != 1)
 			panic (err, NULL, NULL);
 		ms_print_lst(token_list);
-		ms_print_cmdlst(scmds_list);
+		// ms_print_cmdlst(scmds_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
 		ms_cmdclear(&scmds_list);

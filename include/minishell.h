@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/30 15:26:22 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/01 11:51:16 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_info
 
 typedef struct s_scmd
 {
+	int				infile;
+	int				outfile;
 	int				word_count;
 	int				arg_count;
 	char			*cmd_name;
@@ -90,7 +92,9 @@ enum e_error
 	INIT_INT = 11,
 	QUOTING_ERR,
 	READLINE_ERR,
-	PARSE_ERR
+	PARSE_ERR,
+	INFILE_ERR,
+	OUTFILE_ERR
 };
 
 /* ------ LEXER ------ */
@@ -111,6 +115,7 @@ char	*find_var(char *var, char **env);
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
 void	create_node(t_token *token, t_token **wordlist);
+int		handle_redir(t_scmd **scmds_list);
 int		build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info);
 int		is_redir(int type);
 int		check_pipe(t_token *token);
