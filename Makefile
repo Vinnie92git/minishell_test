@@ -6,7 +6,7 @@
 #    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2024/01/29 12:43:17 by vipalaci         ###   ########.fr        #
+#    Updated: 2024/02/01 14:31:44 by vipalaci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ INCLUDE = include/
 # OBJECTS #
 SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c \
 		list_utils_2.c utils.c utils_2.c error.c parser.c parser_utils.c \
-		env.c
+		parser_utils_2.c env.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

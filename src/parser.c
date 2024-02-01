@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/01 11:54:34 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:30:59 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,15 @@
 
 int	handle_redir(t_scmd **scmds_list)
 {
-	t_scmd	*aux_cmd;
-	t_token	*aux_wlist;
+	t_scmd	*aux;
 	int		err;
 	
-	aux_cmd = *scmds_list;
+	aux = *scmds_list;
 	err = 1;
-	while (aux_cmd)
+	while (aux)
 	{
-		aux_wlist = aux_cmd->wordlist;
-		while (aux_wlist)
-		{
-			if (aux_wlist->type == IN_REDIR)
-			{
-				aux_wlist = aux_wlist->next;
-				aux_cmd->infile = open(aux_wlist->content, O_RDONLY);
-				if (aux_cmd->infile < 0)
-					return (INFILE_ERR);
-			}
-			aux_wlist = aux_wlist->next;
-		}
-		aux_cmd = aux_cmd->next;
+		err = check_files(aux);
+		aux = aux->next;
 	}
 	return (err);
 }
@@ -79,6 +67,7 @@ int	check_syntax(t_token **token_list)
 				return (PARSE_ERR);
 			if (aux->type == PIPE)
 				return (PARSE_ERR);
+			aux->type = FILENAME;
 		}
 		aux = aux->next;
 	}
@@ -98,7 +87,7 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	if (err != 1)
 		ms_cmdclear(scmds_list);
 	// err = open_pipes(info);
-	// err = handle_redir(scmds_list);
+	err = handle_redir(scmds_list);
 	// err = find_cmdname(scmds_list);
 	return (err);
 }
