@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/01 11:52:27 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:35:40 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	panic(int err, t_token **list, t_token *token)
 		printf("parsing error\n");
 	else if (err == INFILE_ERR)
 		printf("no such file or directory\n");
+	else if (err == OUTFILE_ERR)
+		printf("error writing/creating file\n");
 	if (list)
 		ms_lstclear(list);
 	if (token)

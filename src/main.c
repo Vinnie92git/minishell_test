@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/01 11:54:44 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:14:37 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	main(int argc, char **argv, char **envp)
 		err = parser(&token_list, &scmds_list, &info);
 		if (err != 1)
 			panic (err, NULL, NULL);
-		ms_print_lst(token_list);
-		// ms_print_cmdlst(scmds_list);
+		// ms_print_lst(token_list);
+		ms_print_cmdlst(scmds_list);
 		free(cmd_line);
 		ms_lstclear(&token_list);
 		ms_cmdclear(&scmds_list);
