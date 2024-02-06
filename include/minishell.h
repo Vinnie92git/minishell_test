@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/05 22:12:27 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/06 22:11:16 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char	*find_var(char *var, char **env);
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
 void	create_node(t_token *token, t_token **wordlist);
+int		open_heredoc(t_scmd *scmd, t_token *token);
 int		open_append(t_scmd *scmd, t_token *token);
 int		open_outfile(t_scmd *scmd, t_token *token);
 int		open_infile(t_scmd *scmd, t_token *token);

@@ -6,16 +6,39 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:28:24 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/05 22:41:02 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/06 22:16:17 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// int	open_heredoc(t_scmd *scmd, t_token *token)
-// {
-	
-// }
+int	open_heredoc(t_scmd *scmd, t_token *token)
+{
+	char	*buf;
+	int		file;
+
+	file = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (file < 0)
+		return (INFILE_ERR);
+	while (1)
+	{
+		write(1, "> ", 2);
+		buf = get_next_line(0);
+		if (!ft_strncmp(buf, token->content, ft_strlen(token->content)))
+			break ;
+		write(file, buf, ft_strlen(buf));
+		free(buf);
+	}
+	free(buf);
+	close(file);
+	scmd->infile = open(".heredoc", O_RDONLY, 0644);
+	if (scmd->infile < 0)
+		return (INFILE_ERR);
+	printf("heredoc opened for reading\n");
+	close(scmd->infile);
+	unlink(".heredoc");
+	return (1);
+}
 
 int	open_append(t_scmd *scmd, t_token *token)
 {
@@ -23,6 +46,7 @@ int	open_append(t_scmd *scmd, t_token *token)
 	if (scmd->outfile < 0)
 		return (OUTFILE_ERR);
 	printf("file %s opened/created for writing/appending\n", token->content);
+	close(scmd->outfile);
 	return (1);
 }
 
@@ -32,6 +56,7 @@ int	open_outfile(t_scmd *scmd, t_token *token)
 	if (scmd->outfile < 0)
 		return (OUTFILE_ERR);
 	printf("file %s opened/created for writing\n", token->content);
+	close(scmd->outfile);
 	return (1);
 }
 
@@ -41,6 +66,7 @@ int	open_infile(t_scmd *scmd, t_token *token)
 	if (scmd->infile < 0)
 		return (INFILE_ERR);
 	printf("file %s opened for reading\n", token->content);
+	close(scmd->infile);
 	return (1);
 }
 
@@ -55,12 +81,12 @@ int	check_files(t_scmd *scmd)
 	{
 		if (aux->type == IN_REDIR)
 			err = open_infile(scmd, aux->next);
-		// else if (aux->type == HEREDOC)
-		// 	err = open_heredoc(scmd, aux->next);
 		else if (aux->type == OUT_REDIR)
 			err = open_outfile(scmd, aux->next);
 		else if (aux->type == APPEND)
 			err = open_append(scmd, aux->next);
+		else if (aux->type == HEREDOC)
+			err = open_heredoc(scmd, aux->next);
 		if (err != 1)
 			return (err);
 		aux = aux->next;
