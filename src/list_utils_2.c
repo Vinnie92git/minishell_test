@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/01 10:22:13 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/07 21:38:13 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ t_scmd	*ms_cmdnew(void)
 	new = malloc(sizeof(t_scmd));
 	if (new == NULL)
 		return (NULL);
-	new->word_count = 0;
-	new->arg_count = 0;
 	new->cmd_name = NULL;
 	new->cmd_args = NULL;
 	new->wordlist = NULL;
@@ -73,6 +71,7 @@ void	ms_cmdclear(t_scmd **list)
 		while (*list)
 		{
 			aux = (*list)->next;
+			ms_lstclear(&(*list)->wordlist);
 			free(*list);
 			(*list) = aux;
 		}

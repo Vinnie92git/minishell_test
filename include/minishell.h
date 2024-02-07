@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/06 22:11:16 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/07 22:46:07 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ typedef struct s_scmd
 {
 	int				infile;
 	int				outfile;
-	int				word_count;
-	int				arg_count;
 	char			*cmd_name;
 	char			**cmd_args;
 	t_token			*wordlist;
@@ -95,7 +93,8 @@ enum e_error
 	READLINE_ERR,
 	PARSE_ERR,
 	INFILE_ERR,
-	OUTFILE_ERR
+	OUTFILE_ERR,
+	MALLOC_ERR
 };
 
 /* ------ LEXER ------ */
@@ -116,6 +115,9 @@ char	*find_var(char *var, char **env);
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
 void	create_node(t_token *token, t_token **wordlist);
+void	store_cmdargs(t_scmd *scmd);
+int		build_cmd(t_scmd *scmd);
+int		find_cmds(t_scmd **scmds_list);
 int		open_heredoc(t_scmd *scmd, t_token *token);
 int		open_append(t_scmd *scmd, t_token *token);
 int		open_outfile(t_scmd *scmd, t_token *token);

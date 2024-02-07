@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/01 14:30:59 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/07 22:50:47 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	find_cmds(t_scmd **scmds_list)
+{
+	t_scmd	*aux;
+	int		err;
+	
+	aux = *scmds_list;
+	err = 1;
+	while (aux)
+	{
+		err = build_cmd(aux);
+		if (err != 1)
+			return (err);
+		aux = aux->next;
+	}
+	return (err);
+}
 
 int	handle_redir(t_scmd **scmds_list)
 {
@@ -22,6 +39,8 @@ int	handle_redir(t_scmd **scmds_list)
 	while (aux)
 	{
 		err = check_files(aux);
+		if (err != 1)
+			return (err);
 		aux = aux->next;
 	}
 	return (err);
@@ -86,8 +105,9 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	err = build_scmdlist(token_list, scmds_list, info);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
-	// err = open_pipes(info);
 	err = handle_redir(scmds_list);
-	// err = find_cmdname(scmds_list);
+	if (err != 1)
+		return (err);
+	err = find_cmds(scmds_list);
 	return (err);
 }
