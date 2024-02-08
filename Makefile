@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vini <vini@student.42.fr>                  +#+  +:+       +#+         #
+#    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2024/02/07 20:39:32 by vini             ###   ########.fr        #
+#    Updated: 2024/02/08 13:09:20 by vipalaci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ INCLUDE = include/
 # OBJECTS #
 SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c \
 		list_utils_2.c utils.c utils_2.c error.c parser.c parser_utils.c \
-		parser_utils_2.c parser_utils_3.c env.c
+		parser_utils_2.c parser_utils_3.c env.c exec.c exec_utils.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

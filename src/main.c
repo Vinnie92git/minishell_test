@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/06 22:17:01 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/08 14:40:05 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int	main(int argc, char **argv, char **envp)
 			panic (err, NULL, NULL);
 		add_history(cmd_line);
 		err = parser(&token_list, &scmds_list, &info);
+		if (err != 1)
+			panic (err, NULL, NULL);
+		err = executer(&scmds_list, &info);
 		if (err != 1)
 			panic (err, NULL, NULL);
 		// ms_print_lst(token_list);

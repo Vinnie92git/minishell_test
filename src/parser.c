@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/07 22:50:47 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/08 11:58:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	err = handle_redir(scmds_list);
 	if (err != 1)
 		return (err);
+	// err = discard_quotes(scmds_list);
+	// if (err != 1)
+	// 	return (err);
 	err = find_cmds(scmds_list);
 	return (err);
 }

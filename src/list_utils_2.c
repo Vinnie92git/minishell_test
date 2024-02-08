@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/07 21:38:13 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/08 14:03:28 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ms_print_cmdlst(t_scmd *sequence)
 {
 	t_token	*aux;
+	int		i;
 	
 	while (sequence)
 	{
@@ -24,6 +25,15 @@ void	ms_print_cmdlst(t_scmd *sequence)
 		{
 			printf("%s\n", aux->content);
 			aux = aux->next;
+		}
+		if (sequence->cmd_args)
+		{
+			printf("--command name--\n");
+			printf("%s\n", sequence->cmd_name);
+			i = 0;
+			printf("--command name/arguments--\n");
+			while (sequence->cmd_args[i])
+				printf("%s\n", sequence->cmd_args[i++]);
 		}
 		sequence = sequence->next;
 	}
@@ -38,6 +48,7 @@ t_scmd	*ms_cmdnew(void)
 	if (new == NULL)
 		return (NULL);
 	new->cmd_name = NULL;
+	new->cmd_path = NULL;
 	new->cmd_args = NULL;
 	new->wordlist = NULL;
 	new->next = NULL;

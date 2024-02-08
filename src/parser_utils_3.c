@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:40:48 by vini              #+#    #+#             */
-/*   Updated: 2024/02/07 22:48:41 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/08 11:20:10 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	store_cmdargs(t_scmd *scmd)
 		aux = aux->next;
 	}
 	scmd->cmd_args[i] = 0;
+	scmd->cmd_name = ft_strdup(scmd->cmd_args[0]);
 }
 
 int	build_cmd(t_scmd *scmd)

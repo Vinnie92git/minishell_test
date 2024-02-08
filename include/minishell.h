@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/07 22:46:07 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/08 14:37:32 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_scmd
 	int				infile;
 	int				outfile;
 	char			*cmd_name;
+	char			*cmd_path;
 	char			**cmd_args;
 	t_token			*wordlist;
 	struct s_scmd	*next;
@@ -94,7 +95,8 @@ enum e_error
 	PARSE_ERR,
 	INFILE_ERR,
 	OUTFILE_ERR,
-	MALLOC_ERR
+	MALLOC_ERR,
+	COMMAND_ERR
 };
 
 /* ------ LEXER ------ */
@@ -130,6 +132,11 @@ int		check_pipe(t_token *token);
 int		check_redir(t_token *token);
 int		check_syntax(t_token **token_list);
 int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
+
+/* ------ EXECUTER ------ */
+int		get_cmd(t_scmd *scmds_list, t_info *info);
+int		check_path(t_scmd *scmd);
+int		executer(t_scmd **scmds_list, t_info *info);
 
 /* ------ LISTS ------ */
 t_token	*ms_lstnew(void);
