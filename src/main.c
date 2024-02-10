@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/08 14:40:05 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:58:27 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	info.env_cpy = copy_env(envp);
 	while (1)
 	{
-		cmd_line = readline("minishell-0.3$ ");
+		cmd_line = readline("minishell-0.4$ ");
 		if (!cmd_line)
 			panic(READLINE_ERR, NULL, NULL);
 		cmd_line[ft_strlen(cmd_line)] = '\0';

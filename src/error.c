@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:45:54 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/08 12:00:54 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:04:18 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	panic(int err, t_token **list, t_token *token)
 		printf("malloc error\n");
 	else if (err == COMMAND_ERR)
 		printf("command not found\n");
+	else if (err == PIPE_ERR)
+		printf("pipe error\n");
+	else if (err == FORK_ERR)
+		printf("error during fork() call\n");
 	if (list)
 		ms_lstclear(list);
 	if (token)

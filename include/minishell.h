@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/08 14:37:32 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:03:17 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ enum e_error
 	INFILE_ERR,
 	OUTFILE_ERR,
 	MALLOC_ERR,
-	COMMAND_ERR
+	COMMAND_ERR,
+	PIPE_ERR,
+	FORK_ERR
 };
 
 /* ------ LEXER ------ */
@@ -134,8 +136,11 @@ int		check_syntax(t_token **token_list);
 int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 
 /* ------ EXECUTER ------ */
+int		create_child(t_scmd *scmd, t_info *info);
+int		exec_cmds(t_scmd **scmds_list, t_info *info);
 int		get_cmd(t_scmd *scmds_list, t_info *info);
 int		check_path(t_scmd *scmd);
+int		check_cmds(t_scmd **scmds_list, t_info *info);
 int		executer(t_scmd **scmds_list, t_info *info);
 
 /* ------ LISTS ------ */
@@ -147,10 +152,6 @@ void	ms_lstclear(t_token **list);
 void	ms_cmdclear(t_scmd **list);
 void	ms_print_lst(t_token *token);
 void	ms_print_cmdlst(t_scmd *sequence);
-
-/* ------ UTILS ------ */
-// char	*ft_strjoin_ms(char *s1, char *s2);
-// char	*ft_join_ms(char *dest, char *s1, char *s2);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);
