@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/10 23:03:17 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/12 21:55:17 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_token
 typedef struct s_info
 {
 	int				pipe_nbr;
-	int				*pipes;
 	char			*path;
 	char			**bin_paths;
 	char			**env_cpy;
@@ -54,7 +53,9 @@ typedef struct s_info
 typedef struct s_scmd
 {
 	int				infile;
+	int				heredoc;
 	int				outfile;
+	int				cmd_idx;
 	char			*cmd_name;
 	char			*cmd_path;
 	char			**cmd_args;
@@ -137,6 +138,7 @@ int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 
 /* ------ EXECUTER ------ */
 int		create_child(t_scmd *scmd, t_info *info);
+int		single_child(t_scmd *scmd, t_info *info);
 int		exec_cmds(t_scmd **scmds_list, t_info *info);
 int		get_cmd(t_scmd *scmds_list, t_info *info);
 int		check_path(t_scmd *scmd);
@@ -152,6 +154,7 @@ void	ms_lstclear(t_token **list);
 void	ms_cmdclear(t_scmd **list);
 void	ms_print_lst(t_token *token);
 void	ms_print_cmdlst(t_scmd *sequence);
+void	ms_close_fds(t_scmd **list);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);

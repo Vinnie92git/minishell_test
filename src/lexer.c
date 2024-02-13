@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 10:50:36 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:17:20 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	lexer(t_token **token_list, char *input, char **env)
 	int		i;
 
 	i = 0;
-	while (input && input[i])
+	while (input[i])
 	{
 		if (is_space(input[i]))
 			i++;

@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/10 21:57:09 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/12 20:40:49 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,22 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 	int		err;
 	
 	aux = *scmds_list;
-	while (aux)
+	if (info->pipe_nbr == 0)
 	{
-		err = create_child(aux, info);
+		err = single_child(aux, info);
 		if (err != 1)
 			return (err);
-		aux = aux->next;
 	}
+	// else
+	// 	while (aux)
+	// 	{
+	// 		err = create_child(aux, info);
+	// 		if (err != 1)
+	// 			return (err);
+	// 		aux = aux->next;
+	// 	}
+	while(wait(NULL) != -1 || errno != ECHILD);
+	return (1);
 }
 
 int	check_cmds(t_scmd **scmds_list, t_info *info)
@@ -56,6 +65,8 @@ int	executer(t_scmd **scmds_list, t_info *info)
 	int	err;
 
 	err = check_cmds(scmds_list, info);
+	if (err != 1)
+		return (err);
 	err = exec_cmds(scmds_list, info);
 	return (err);
 }

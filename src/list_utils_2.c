@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/08 14:03:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:53:57 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ms_close_fds(t_scmd **list)
+{
+	t_scmd	*aux;
+
+	if (list != NULL)
+	{
+		aux = *list;
+		while (aux)
+		{
+			if (aux->infile != -1)
+				close(aux->infile);
+			if (aux->heredoc)
+				unlink(".heredoc");
+			if (aux->outfile != -1)
+				close(aux->outfile);
+			aux = aux->next;
+		}
+	}
+}
 
 void	ms_print_cmdlst(t_scmd *sequence)
 {
@@ -47,6 +67,9 @@ t_scmd	*ms_cmdnew(void)
 	new = malloc(sizeof(t_scmd));
 	if (new == NULL)
 		return (NULL);
+	new->infile = -1;
+	new->outfile = -1;
+	new->heredoc = 0;
 	new->cmd_name = NULL;
 	new->cmd_path = NULL;
 	new->cmd_args = NULL;
