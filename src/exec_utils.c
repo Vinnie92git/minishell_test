@@ -3,44 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/13 15:20:29 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 00:02:03 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// int	create_child(t_scmd *scmd, t_info *info)
-// {
-// 	pid_t	pid;
-// 	int		pipe_fd[2];
-
-// 	if (pipe(pipe_fd) == -1)
-// 		return (PIPE_ERR)
-// 	pid = fork();
-// 	if (pid == -1)
-// 		return (FORK_ERR)
-// 	if (pid == 0)
-// 	{
-// 		// child
-// 		close(pipe_fd[0]);
-// 		if (scmd->outfile != -1)
-// 			dup2(scmd->outfile, 1);
-// 		else
-// 			dup2(pipe_fd[1], 1);
-			
-// 		// execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy);
-// 	}
-// 	else
-// 	{
-// 		// parent
-// 		close(pipe_fd[1]);
-// 	}
-// }
-
-int	single_child(t_scmd *scmd, t_info *info)
+int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w)
 {
 	pid_t	pid;
 	
@@ -53,6 +25,45 @@ int	single_child(t_scmd *scmd, t_info *info)
 		{
 			dup2(scmd->infile, STDIN_FILENO);
 			close(scmd->infile);
+		}
+		else if (upstream != -1)
+		{
+			dup2(upstream, STDIN_FILENO);
+			close(upstream);
+		}
+		if (scmd->outfile != -1)
+		{
+			dup2(scmd->outfile, STDOUT_FILENO);
+			close(scmd->outfile);
+		}
+		else if (pipe_w != -1)
+		{
+			dup2(pipe_w, STDOUT_FILENO);
+			close(pipe_w);
+		}
+		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
+	}
+	return (1);
+}
+
+int	single_child(t_scmd *scmd, t_info *info, int upstream)
+{
+	pid_t	pid;
+	
+	pid = fork();
+	if (pid == -1)
+		return (FORK_ERR);
+	if (pid == 0)
+	{
+		if (scmd->infile != -1)
+		{
+			dup2(scmd->infile, STDIN_FILENO);
+			close(scmd->infile);
+		}
+		else if (upstream != -1)
+		{
+			dup2(upstream, STDIN_FILENO);
+			close(upstream);
 		}
 		if (scmd->outfile != -1)
 		{
