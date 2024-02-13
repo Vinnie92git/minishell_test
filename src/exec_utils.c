@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/13 01:01:14 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/13 15:20:29 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,18 @@ int	single_child(t_scmd *scmd, t_info *info)
 	if (pid == 0)
 	{
 		if (scmd->infile != -1)
-			dup2(scmd->infile, 0);
+		{
+			dup2(scmd->infile, STDIN_FILENO);
+			close(scmd->infile);
+		}
 		if (scmd->outfile != -1)
-			dup2(scmd->outfile, 1);
+		{
+			dup2(scmd->outfile, STDOUT_FILENO);
+			close(scmd->outfile);
+		}
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
-	else
-	{
-		return (1);
-	}
+	return (1);
 }
 
 int	get_cmd(t_scmd *scmd, t_info *info)

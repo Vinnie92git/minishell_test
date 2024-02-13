@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:28:24 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/12 20:56:14 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/13 11:56:45 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	open_heredoc(t_scmd *scmd, t_token *token)
 	char	*buf;
 	int		file;
 
+	if (scmd->infile != -1)
+		close(scmd->infile);
 	file = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (file < 0)
 		return (INFILE_ERR);
@@ -36,38 +38,39 @@ int	open_heredoc(t_scmd *scmd, t_token *token)
 		return (INFILE_ERR);
 	scmd->heredoc = 1;
 	printf("heredoc opened for reading\n");
-	// close(scmd->infile);
-	// unlink(".heredoc");
 	return (1);
 }
 
 int	open_append(t_scmd *scmd, t_token *token)
 {
+	if (scmd->outfile != -1)
+		close(scmd->outfile);
 	scmd->outfile = open(token->content, O_APPEND | O_CREAT | O_RDWR, 0644);
 	if (scmd->outfile < 0)
 		return (OUTFILE_ERR);
 	printf("file %s opened/created for writing/appending\n", token->content);
-	// close(scmd->outfile);
 	return (1);
 }
 
 int	open_outfile(t_scmd *scmd, t_token *token)
 {
+	if (scmd->outfile != -1)
+		close(scmd->outfile);
 	scmd->outfile = open(token->content, O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (scmd->outfile < 0)
 		return (OUTFILE_ERR);
 	printf("file %s opened/created for writing\n", token->content);
-	// close(scmd->outfile);
 	return (1);
 }
 
 int	open_infile(t_scmd *scmd, t_token *token)
 {
+	if (scmd->infile != -1)
+		close(scmd->infile);
 	scmd->infile = open(token->content, O_RDONLY, 0644);
 	if (scmd->infile < 0)
 		return (INFILE_ERR);
 	printf("file %s opened for reading\n", token->content);
-	// close(scmd->infile);
 	return (1);
 }
 

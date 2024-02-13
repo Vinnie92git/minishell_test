@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/12 21:55:17 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/13 15:20:21 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ typedef struct s_info
 typedef struct s_scmd
 {
 	int				infile;
-	int				heredoc;
 	int				outfile;
-	int				cmd_idx;
+	int				heredoc;
 	char			*cmd_name;
 	char			*cmd_path;
 	char			**cmd_args;

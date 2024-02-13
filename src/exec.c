@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/12 20:40:49 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/13 15:33:10 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,21 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 		if (err != 1)
 			return (err);
 	}
-	// else
-	// 	while (aux)
-	// 	{
-	// 		err = create_child(aux, info);
-	// 		if (err != 1)
-	// 			return (err);
-	// 		aux = aux->next;
-	// 	}
+	else
+	{
+		while (aux)
+		{
+			if (!aux->next)
+				last_command();
+			else
+			{
+				err = create_child(aux, info);
+				if (err != 1)
+					return (err);
+			}
+			aux = aux->next;
+		}
+	}
 	while(wait(NULL) != -1 || errno != ECHILD);
 	return (1);
 }
