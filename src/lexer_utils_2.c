@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
-/*   Updated: 2024/01/29 12:37:35 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:52:08 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,29 @@ char	*expand(char *source, int start, int end, char **env)
 
 char	*quoted_dsign(char *str, char **env)
 {
-	char	*expanded;
+	char	*exp;
 	char	*temp;
 	int		start;
 	int		end;
 
-	expanded = ft_strdup(str);
+	exp = ft_strdup(str);
 	start = 0;
-	while (expanded[start])
+	while (exp[start])
 	{
-		if (is_dsign(expanded[start]))
+		if (is_dsign(exp[start]))
 		{
 			start++;
 			end = start;
-			while (expanded[end] && !is_space(expanded[end]) && !is_operator(expanded[end])
-				&& !is_quote(expanded[end]) && !is_dsign(expanded[end]))
+			while (exp[end] && !is_space(exp[end]) && !is_operator(exp[end])
+				&& !is_quote(exp[end]) && !is_dsign(exp[end]))
 				end++;
-			temp = expand(expanded, start, end, env);
-			free(expanded);
-			expanded = temp;
+			temp = expand(exp, start, end, env);
+			free(exp);
+			exp = temp;
 			start--;
 		}
 		else
 			start++;
 	}
-	return (expanded);
+	return (exp);
 }

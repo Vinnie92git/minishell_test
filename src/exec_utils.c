@@ -3,44 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 00:02:03 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/14 10:51:13 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	ft_dup(int old_fd, int new_fd)
+{
+	dup2(old_fd, new_fd);
+	close(old_fd);
+}
+
 int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == -1)
 		return (FORK_ERR);
 	if (pid == 0)
 	{
 		if (scmd->infile != -1)
-		{
-			dup2(scmd->infile, STDIN_FILENO);
-			close(scmd->infile);
-		}
+			ft_dup(scmd->infile, STDIN_FILENO);
 		else if (upstream != -1)
-		{
-			dup2(upstream, STDIN_FILENO);
-			close(upstream);
-		}
+			ft_dup(upstream, STDIN_FILENO);
 		if (scmd->outfile != -1)
-		{
-			dup2(scmd->outfile, STDOUT_FILENO);
-			close(scmd->outfile);
-		}
+			ft_dup(scmd->outfile, STDOUT_FILENO);
 		else if (pipe_w != -1)
-		{
-			dup2(pipe_w, STDOUT_FILENO);
-			close(pipe_w);
-		}
+			ft_dup(pipe_w, STDOUT_FILENO);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
 	return (1);
@@ -49,27 +43,18 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w)
 int	single_child(t_scmd *scmd, t_info *info, int upstream)
 {
 	pid_t	pid;
-	
+
 	pid = fork();
 	if (pid == -1)
 		return (FORK_ERR);
 	if (pid == 0)
 	{
 		if (scmd->infile != -1)
-		{
-			dup2(scmd->infile, STDIN_FILENO);
-			close(scmd->infile);
-		}
+			ft_dup(scmd->infile, STDIN_FILENO);
 		else if (upstream != -1)
-		{
-			dup2(upstream, STDIN_FILENO);
-			close(upstream);
-		}
+			ft_dup(upstream, STDIN_FILENO);
 		if (scmd->outfile != -1)
-		{
-			dup2(scmd->outfile, STDOUT_FILENO);
-			close(scmd->outfile);
-		}
+			ft_dup(scmd->outfile, STDOUT_FILENO);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
 	return (1);
@@ -102,7 +87,7 @@ int	get_cmd(t_scmd *scmd, t_info *info)
 int	check_path(t_scmd *scmd)
 {
 	if (scmd->cmd_name[0] == '.' || scmd->cmd_name[0] == '/')
-	{							
+	{
 		if (access(scmd->cmd_name, F_OK & R_OK & X_OK) == 0)
 		{
 			printf("command path %s is valid\n", scmd->cmd_name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:30:55 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/12 19:52:56 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/14 10:53:25 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	create_node(t_token *token, t_token **wordlist)
 {
 	t_token	*word;
-	
+
 	word = ms_lstnew();
 	word->type = token->type;
 	word->content = token->content;

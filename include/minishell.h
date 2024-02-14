@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/13 23:18:35 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/14 10:46:58 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		check_syntax(t_token **token_list);
 int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 
 /* ------ EXECUTER ------ */
+void	ft_dup(int old_fd, int new_fd);
 int		exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w);
 int		single_child(t_scmd *scmd, t_info *info, int upstream);
 int		exec_cmds(t_scmd **scmds_list, t_info *info);

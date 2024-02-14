@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/13 23:58:48 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/14 10:50:51 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 	int		pipe_fd[2];
 	int		upstream;
 	int		err;
-	
+
 	aux = *scmds_list;
 	upstream = -1;
 	while (aux)
@@ -26,22 +26,16 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 		if (pipe(pipe_fd) == -1)
 			return (PIPE_ERR);
 		if (!aux->next)
-		{
 			err = single_child(aux, info, upstream);
-			if (err != 1)
-				return (err);
-		}
 		else
-		{
 			err = exec_child(aux, info, upstream, pipe_fd[1]);
-			if (err != 1)
-				return (err);
-		}
+		if (err != 1)
+			return (err);
 		close(pipe_fd[1]);
 		upstream = pipe_fd[0];
 		aux = aux->next;
 	}
-	while(wait(NULL) != -1 || errno != ECHILD);
+	while (wait(NULL) != -1 || errno != ECHILD);
 	close(pipe_fd[0]);
 	close(upstream);
 	return (1);
@@ -51,7 +45,7 @@ int	check_cmds(t_scmd **scmds_list, t_info *info)
 {
 	t_scmd	*aux;
 	int		err;
-	
+
 	aux = *scmds_list;
 	while (aux)
 	{
