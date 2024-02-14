@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 15:25:21 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 22:20:06 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 	return (1);
 }
 
-int	check_cmds(t_scmd **scmds_list, t_info *info)
+void	check_cmds(t_scmd **scmds_list, t_info *info)
 {
 	t_scmd	*aux;
 	int		err;
@@ -58,23 +58,17 @@ int	check_cmds(t_scmd **scmds_list, t_info *info)
 			{
 				err = get_cmd(aux, info);
 				if (err != 1)
-					return (err);
+					panic(err, NULL, NULL);
 			}
 			else
-				return (err);
+				panic(err, NULL, NULL);
 		}
 		aux = aux->next;
 	}
-	return (err);
 }
 
 int	executer(t_scmd **scmds_list, t_info *info)
 {
-	int	err;
-
-	err = check_cmds(scmds_list, info);
-	if (err != 1)
-		return (err);
-	err = exec_cmds(scmds_list, info);
-	return (err);
+	check_cmds(scmds_list, info);
+	return (exec_cmds(scmds_list, info));
 }

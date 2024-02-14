@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 13:56:18 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 22:29:57 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w)
 			ft_dup(scmd->outfile, STDOUT_FILENO);
 		else if (pipe_w != -1)
 			ft_dup(pipe_w, STDOUT_FILENO);
+		if (!scmd->cmd_path)
+			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
 	return (1);
@@ -55,6 +57,8 @@ int	single_child(t_scmd *scmd, t_info *info, int upstream)
 			ft_dup(upstream, STDIN_FILENO);
 		if (scmd->outfile != -1)
 			ft_dup(scmd->outfile, STDOUT_FILENO);
+		if (!scmd->cmd_path)
+			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
 	return (1);
@@ -71,6 +75,7 @@ int	get_cmd(t_scmd *scmd, t_info *info)
 	{
 		aux = ft_strjoin(info->bin_paths[i], "/");
 		command = ft_strjoin(aux, scmd->cmd_name);
+		
 		free(aux);
 		if (access(command, F_OK & R_OK & X_OK) == 0)
 		{

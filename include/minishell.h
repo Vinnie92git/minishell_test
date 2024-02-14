@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 10:46:58 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 22:08:46 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char	*find_var(char *var, char **env);
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
 void	create_node(t_token *token, t_token **wordlist);
 void	store_cmdargs(t_scmd *scmd);
+void	handle_redir(t_scmd **scmds_list);
 int		build_cmd(t_scmd *scmd);
 int		find_cmds(t_scmd **scmds_list);
 int		open_heredoc(t_scmd *scmd, t_token *token);
@@ -127,7 +128,6 @@ int		open_append(t_scmd *scmd, t_token *token);
 int		open_outfile(t_scmd *scmd, t_token *token);
 int		open_infile(t_scmd *scmd, t_token *token);
 int		check_files(t_scmd *scmd);
-int		handle_redir(t_scmd **scmds_list);
 int		build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info);
 int		is_redir(int type);
 int		check_pipe(t_token *token);
@@ -137,12 +137,12 @@ int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 
 /* ------ EXECUTER ------ */
 void	ft_dup(int old_fd, int new_fd);
+void	check_cmds(t_scmd **scmds_list, t_info *info);
 int		exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w);
 int		single_child(t_scmd *scmd, t_info *info, int upstream);
 int		exec_cmds(t_scmd **scmds_list, t_info *info);
 int		get_cmd(t_scmd *scmds_list, t_info *info);
 int		check_path(t_scmd *scmd);
-int		check_cmds(t_scmd **scmds_list, t_info *info);
 int		executer(t_scmd **scmds_list, t_info *info);
 
 /* ------ LISTS ------ */

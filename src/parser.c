@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 14:27:04 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:37:54 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	find_cmds(t_scmd **scmds_list)
 	return (err);
 }
 
-int	handle_redir(t_scmd **scmds_list)
+void	handle_redir(t_scmd **scmds_list)
 {
 	t_scmd	*aux;
 	int		err;
@@ -43,7 +43,6 @@ int	handle_redir(t_scmd **scmds_list)
 			panic(err, NULL, NULL);
 		aux = aux->next;
 	}
-	return (err);
 }
 
 int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
@@ -88,7 +87,8 @@ int	check_syntax(t_token **token_list)
 				return (PARSE_ERR);
 			aux->type = FILENAME;
 		}
-		aux = aux->next;
+		else
+			aux = aux->next;
 	}
 	return (1);
 }
@@ -105,9 +105,7 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	err = build_scmdlist(token_list, scmds_list, info);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
-	err = handle_redir(scmds_list);
-	if (err != 1)
-		return (err);
+	handle_redir(scmds_list);
 	err = find_cmds(scmds_list);
 	return (err);
 }

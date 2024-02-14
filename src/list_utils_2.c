@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 10:52:32 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:56:36 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ms_print_cmdlst(t_scmd *sequence)
 			printf("%s\n", aux->content);
 			aux = aux->next;
 		}
-		if (sequence->cmd_args)
+		if (sequence->cmd_args[0])
 		{
 			printf("--command name--\n");
 			printf("%s\n", sequence->cmd_name);
@@ -55,6 +55,8 @@ void	ms_print_cmdlst(t_scmd *sequence)
 			while (sequence->cmd_args[i])
 				printf("%s\n", sequence->cmd_args[i++]);
 		}
+		else
+			printf("(no command)\n");
 		sequence = sequence->next;
 	}
 }
