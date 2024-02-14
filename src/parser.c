@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 10:53:11 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:27:04 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_redir(t_scmd **scmds_list)
 	{
 		err = check_files(aux);
 		if (err != 1)
-			return (err);
+			panic(err, NULL, NULL);
 		aux = aux->next;
 	}
 	return (err);

@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 10:50:51 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:25:21 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 		upstream = pipe_fd[0];
 		aux = aux->next;
 	}
-	while (wait(NULL) != -1 || errno != ECHILD);
+	while (wait(NULL) != -1 || errno != ECHILD)
 	close(pipe_fd[0]);
 	close(upstream);
 	return (1);
@@ -49,17 +49,20 @@ int	check_cmds(t_scmd **scmds_list, t_info *info)
 	aux = *scmds_list;
 	while (aux)
 	{
-		err = check_path(aux);
-		if (err == 1)
-			aux->cmd_path = aux->cmd_name;
-		else if (err == 0)
+		if (aux->cmd_name)
 		{
-			err = get_cmd(aux, info);
-			if (err != 1)
+			err = check_path(aux);
+			if (err == 1)
+				aux->cmd_path = aux->cmd_name;
+			else if (err == 0)
+			{
+				err = get_cmd(aux, info);
+				if (err != 1)
+					return (err);
+			}
+			else
 				return (err);
 		}
-		else
-			return (err);
 		aux = aux->next;
 	}
 	return (err);
