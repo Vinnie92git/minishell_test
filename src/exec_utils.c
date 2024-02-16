@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/16 00:37:46 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/16 11:39:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w, int pipe_r)
 			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
-	close(pipe_w);
+	close(upstream);
 	return (1);
 }
 
