@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils_2.c                                    :+:      :+:    :+:   */
+/*   parser_utils_4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 22:15:36 by vini              #+#    #+#             */
-/*   Updated: 2024/02/14 10:52:08 by vipalaci         ###   ########.fr       */
+/*   Created: 2024/02/19 22:03:54 by vini              #+#    #+#             */
+/*   Updated: 2024/02/20 18:22:32 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char	*find_var(char *varname, char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(varname, env[i], ft_strlen(varname))
-			&& env[i][ft_strlen(varname)] == '=')
-			return (env[i] + (ft_strlen(varname) + 1));
-		i++;
-	}
-	return (0);
-}
 
 char	*expand(char *source, int start, int end, char **env)
 {
@@ -42,21 +27,19 @@ char	*expand(char *source, int start, int end, char **env)
 	if (expand == NULL)
 		return (NULL);
 	i = 0;
-	j = 0;
-	while (j < start - 1)
-	{
+	j = -1;
+	while (++j < start - 1)
 		expand[j] = source[j];
-		j++;
-	}
-	while (var[i])
-		expand[j++] = var[i++];
+	if (var)
+		while (var[i])
+			expand[j++] = var[i++];
 	while (source[end])
 		expand[j++] = source[end++];
 	expand[j] = '\0';
 	return (expand);
 }
 
-char	*quoted_dsign(char *str, char **env)
+char	*expand_dsign(char *str, char **env)
 {
 	char	*exp;
 	char	*temp;
@@ -83,4 +66,54 @@ char	*quoted_dsign(char *str, char **env)
 			start++;
 	}
 	return (exp);
+}
+
+char*	check_quotes(char *str, char **env)
+{
+	int	i;
+	int	quote;
+
+	i = 0;
+	quote = 0;
+	while(str[i])
+	{
+		if (is_quote(str[i]))
+		{
+			quote = is_quote(str[i]);
+			if (quote == DOUBLE_QUOTE)
+				str = quoted_dsign(str, env, i);
+			i = closing_quote(str, i);
+		}
+		else if (str[i] == '$')
+			str = expand_dsign(str, env);
+		else
+			i++;
+	}
+	return (str);
+}
+
+void	check_dsign(t_scmd *scmd, char **env)
+{
+	t_token	*aux;
+
+	aux = scmd->wordlist;
+	while (aux)
+	{
+		if (aux->type == WORD || aux->type == QUOTED_WORD)
+			if (ft_strchr(aux->content, '$'))
+				aux->content = check_quotes(aux->content, env);
+		aux = aux->next;
+	}
+}
+
+void	expand_var(t_scmd **scmds_list, char **env)
+{
+	t_scmd	*aux;
+
+	aux = *scmds_list;
+	while (aux)
+	{
+		check_dsign(aux, env);
+		aux = aux->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:31:16 by vini              #+#    #+#             */
-/*   Updated: 2024/01/29 10:49:34 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:01:41 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,19 @@ char	*get_path(char **env)
 	if (!path)
 		return (NULL);
 	return (path);
+}
+
+char	*find_var(char *varname, char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(varname, env[i], ft_strlen(varname))
+			&& env[i][ft_strlen(varname)] == '=')
+			return (env[i] + (ft_strlen(varname) + 1));
+		i++;
+	}
+	return (0);
 }

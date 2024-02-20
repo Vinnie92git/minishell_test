@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+         #
+#    By: vini <vini@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 11:48:29 by vipalaci          #+#    #+#              #
-#    Updated: 2024/02/13 15:20:13 by vipalaci         ###   ########.fr        #
+#    Updated: 2024/02/20 12:15:51 by vini             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,10 @@ NAME = minishell
 INCLUDE = include/
 
 # OBJECTS #
-SRC = main.c lexer.c lexer_utils.c lexer_utils_2.c list_utils.c \
-		list_utils_2.c utils.c utils_2.c error.c parser.c parser_utils.c \
-		parser_utils_2.c parser_utils_3.c env.c exec.c exec_utils.c
+SRC = main.c lexer.c lexer_utils.c list_utils.c list_utils_2.c utils.c \
+		utils_2.c error.c parser.c parser_utils.c parser_utils_2.c \
+		parser_utils_3.c parser_utils_4.c parser_utils_5.c env.c exec.c \
+		exec_utils.c
 
 SRC_PATH = src/
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

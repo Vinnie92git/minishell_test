@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/16 00:38:47 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/20 13:29:33 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,27 @@ enum e_error
 };
 
 /* ------ LEXER ------ */
-int		lexer(t_token **token_list, char *input, char **env);
-int		handle_quotes(t_token **token_list, char *input, int i, char **env);
+int		lexer(t_token **token_list, char *input);
 int		handle_operators(t_token **token_list, char *input, int i);
 int		handle_words(t_token **token_list, char *input, int i);
-int		handle_dsign(t_token **token_list, char *input, int i, char **env);
 int		operator_type(char *input, int i);
 int		is_operator(char c);
 int		is_quote(char c);
 int		is_space(char c);
 int		is_dsign(char c);
-char	*quoted_dsign(char *str, char **env);
-char	*expand(char *source, int start, int end, char **env);
-char	*find_var(char *var, char **env);
 
 /* ------ PARSER ------ */
 t_token	*create_scmd(t_token *token, t_scmd **scmds_list);
 void	create_node(t_token *token, t_token **wordlist);
 void	store_cmdargs(t_scmd *scmd);
 void	handle_redir(t_scmd **scmds_list);
+void	expand_var(t_scmd **scmds_list, char **env);
+void	check_dsign(t_scmd *scmd, char **env);
+char	*check_quotes(char *str, char **env);
+char	*expand(char *source, int start, int end, char **env);
+char	*expand_dsign(char *str, char **env);
+char	*quoted_dsign(char *str, char **env, int i);
+int		closing_quote(char *str, int i);
 int		build_cmd(t_scmd *scmd);
 int		find_cmds(t_scmd **scmds_list);
 int		open_heredoc(t_scmd *scmd, t_token *token);
@@ -162,5 +164,6 @@ void	panic(int err, t_token **list, t_token *token);
 /* ------ ENV ------ */
 char	**copy_env(char **envp);
 char	*get_path(char **env);
+char	*find_var(char *varname, char **env);
 
 #endif

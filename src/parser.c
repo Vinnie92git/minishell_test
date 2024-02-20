@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 21:37:54 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/20 18:24:21 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	err = build_scmdlist(token_list, scmds_list, info);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
+	expand_var(scmds_list, info->env_cpy);
+	// remove_quotes()
 	handle_redir(scmds_list);
 	err = find_cmds(scmds_list);
 	return (err);

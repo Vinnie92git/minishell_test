@@ -9,7 +9,7 @@ Basically, the shell does the following:
 
 3. Parses the tokens into simple and compound commands. (And performs pipeline connections).
 
-4. Performs the various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments.
+4. Performs the various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments. Quote removal also occurs at the end of this step.
 
 5. Performs any necessary redirections and removes the redirection operators and their operands from the argument list.
 
