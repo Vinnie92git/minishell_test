@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/22 01:32:27 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/22 19:25:47 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ enum e_error
 	FORK_ERR
 };
 
+/* ------ MAIN ------ */
+void	shell_operation(char *line, t_token *list, t_scmd *scmds, t_info info);
+
 /* ------ LEXER ------ */
 int		lexer(t_token **token_list, char *input);
 int		handle_operators(t_token **token_list, char *input, int i);
@@ -122,7 +125,7 @@ void	expand_var(t_scmd **scmds_list, char **env);
 void	check_dsign(t_scmd *scmd, char **env);
 void	remove_quotes(t_scmd **scmds_list);
 void	check_quotes(t_scmd *scmd);
-char	*unquoted_str(char *unquoted, char *str);
+char	*unquoted_str(char *unquoted, char *str, int i, int j);
 char	*unquote(char *str);
 char	*expand(char *str, char **env);
 char	*buffer_var(char *source, int start, int end, char **env);

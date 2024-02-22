@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:15:01 by vini              #+#    #+#             */
-/*   Updated: 2024/02/22 01:31:21 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/22 19:24:39 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char*	unquote(char *str)
 	unquoted = malloc(sizeof(char) * (f_len + 1));
 	if (unquoted == NULL)
 		return (NULL);
-	unquoted = unquoted_str(unquoted, str);
+	unquoted = unquoted_str(unquoted, str, 0, 0);
 	return (unquoted);
 }
 

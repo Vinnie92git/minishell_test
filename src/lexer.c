@@ -6,30 +6,11 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/21 19:35:48 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/22 19:19:23 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// int	handle_dsign(t_token **token_list, char *input, int i, char **env)
-// {
-// 	t_token	*token;
-// 	char	*varname;
-// 	int		end;
-
-// 	token = ms_lstnew();
-// 	i++;
-// 	end = i;
-// 	while (input[end] && !is_space(input[end]) && !is_operator(input[end])
-// 		&& !is_quote(input[end]) && !is_dsign(input[end]))
-// 		end++;
-// 	varname = ft_substr(input, i, end - i);
-// 	token->content = find_var(varname, env);
-// 	token->type = WORD;
-// 	ms_lstadd_back(token_list, token);
-// 	return (end);
-// }
 
 int	handle_words(t_token **token_list, char *input, int i)
 {
@@ -77,31 +58,6 @@ int	handle_operators(t_token **token_list, char *input, int i)
 	ms_lstadd_back(token_list, token);
 	return (i);
 }
-
-// int	handle_quotes(t_token **token_list, char *input, int i, char **env)
-// {
-// 	t_token	*token;
-// 	char	*str;
-// 	int		end;
-// 	int		quote;
-
-// 	token = ms_lstnew();
-// 	quote = is_quote(input[i]);
-// 	end = i;
-// 	while (input[end++] && quote != 0)
-// 		if (quote == is_quote(input[end]))
-// 			quote = 0;
-// 	if (quote)
-// 		return (QUOTING_ERR);
-// 	str = ft_substr(input, i, end - i);
-// 	if (is_quote(input[i]) == SINGLE_QUOTE)
-// 		token->content = str;
-// 	else if (is_quote(input[i]) == DOUBLE_QUOTE)
-// 		token->content = quoted_dsign(str, env);
-// 	token->type = QUOTED_WORD;
-// 	ms_lstadd_back(token_list, token);
-// 	return (end);
-// }
 
 int	lexer(t_token **token_list, char *input)
 {

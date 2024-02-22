@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/16 11:39:09 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:18:39 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	get_cmd(t_scmd *scmd, t_info *info)
 		if (access(command, F_OK & R_OK & X_OK) == 0)
 		{
 			scmd->cmd_path = command;
-			printf("command %s is valid\n", scmd->cmd_name);
+			// printf("command %s is valid\n", scmd->cmd_name);
 			return (1);
 		}
 		free(command);
@@ -98,7 +98,7 @@ int	check_path(t_scmd *scmd)
 	{
 		if (access(scmd->cmd_name, F_OK & R_OK & X_OK) == 0)
 		{
-			printf("command path %s is valid\n", scmd->cmd_name);
+			// printf("command path %s is valid\n", scmd->cmd_name);
 			return (1);
 		}
 		else
