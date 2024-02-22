@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/20 18:24:21 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/22 01:27:34 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	check_syntax(t_token **token_list)
 				return (PARSE_ERR);
 			if (aux->type == PIPE)
 				return (PARSE_ERR);
-			aux->type = FILENAME;
 		}
 		else
 			aux = aux->next;
@@ -102,11 +101,12 @@ int	parser(t_token **token_list, t_scmd **scmds_list, t_info *info)
 	err = check_syntax(token_list);
 	if (err != 1)
 		return (err);
+	assign_filenames(token_list);
 	err = build_scmdlist(token_list, scmds_list, info);
 	if (err != 1)
 		ms_cmdclear(scmds_list);
 	expand_var(scmds_list, info->env_cpy);
-	// remove_quotes()
+	remove_quotes(scmds_list);
 	handle_redir(scmds_list);
 	err = find_cmds(scmds_list);
 	return (err);

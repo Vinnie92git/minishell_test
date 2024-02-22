@@ -6,69 +6,39 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 22:03:54 by vini              #+#    #+#             */
-/*   Updated: 2024/02/20 18:22:32 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/21 22:11:44 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*expand(char *source, int start, int end, char **env)
+int	closing_quote(char *str, int i)
 {
-	char	*expand;
-	char	*varname;
-	char	*var;
-	int		i;
-	int		j;
+	int	quote;
 
-	varname = ft_substr(source, start, end - start);
-	var = find_var(varname, env);
-	free (varname);
-	expand = malloc(sizeof(char) * (ft_strlen(source) + ft_strlen(var) + 1));
-	if (expand == NULL)
-		return (NULL);
-	i = 0;
-	j = -1;
-	while (++j < start - 1)
-		expand[j] = source[j];
-	if (var)
-		while (var[i])
-			expand[j++] = var[i++];
-	while (source[end])
-		expand[j++] = source[end++];
-	expand[j] = '\0';
-	return (expand);
+	quote = is_quote(str[i]);
+	while (str[i++] && quote != 0)
+		if (quote == is_quote(str[i]))
+			quote = 0;
+	return (i);
 }
 
-char	*expand_dsign(char *str, char **env)
+char	*quoted_dsign(char *str, char **env, int i)
 {
-	char	*exp;
-	char	*temp;
-	int		start;
-	int		end;
+	int	quote;
 
-	exp = ft_strdup(str);
-	start = 0;
-	while (exp[start])
+	quote = is_quote(str[i]);
+	while (str[i++] && quote != 0)
 	{
-		if (is_dsign(exp[start]))
-		{
-			start++;
-			end = start;
-			while (exp[end] && !is_space(exp[end]) && !is_operator(exp[end])
-				&& !is_quote(exp[end]) && !is_dsign(exp[end]))
-				end++;
-			temp = expand(exp, start, end, env);
-			free(exp);
-			exp = temp;
-			start--;
-		}
-		else
-			start++;
+		if (quote == is_quote(str[i]))
+			quote = 0;
+		else if (str[i] == '$' && ft_isalnum(str[i + 1]))
+			str = expand_dsign(str, env);
 	}
-	return (exp);
+	return (str);
 }
 
-char*	check_quotes(char *str, char **env)
+char*	expand(char *str, char **env)
 {
 	int	i;
 	int	quote;
@@ -84,7 +54,7 @@ char*	check_quotes(char *str, char **env)
 				str = quoted_dsign(str, env, i);
 			i = closing_quote(str, i);
 		}
-		else if (str[i] == '$')
+		else if (str[i] == '$' && str[i + 1])
 			str = expand_dsign(str, env);
 		else
 			i++;
@@ -99,9 +69,9 @@ void	check_dsign(t_scmd *scmd, char **env)
 	aux = scmd->wordlist;
 	while (aux)
 	{
-		if (aux->type == WORD || aux->type == QUOTED_WORD)
+		if (aux->type == WORD || aux->type == FILENAME)
 			if (ft_strchr(aux->content, '$'))
-				aux->content = check_quotes(aux->content, env);
+				aux->content = expand(aux->content, env);
 		aux = aux->next;
 	}
 }

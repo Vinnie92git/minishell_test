@@ -6,7 +6,7 @@
 /*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:40:48 by vini              #+#    #+#             */
-/*   Updated: 2024/02/14 21:01:21 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/22 01:31:34 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ int	build_cmd(t_scmd *scmd)
 		return (MALLOC_ERR);
 	store_cmdargs(scmd);
 	return (1);
+}
+
+void	assign_filenames(t_token **token_list)
+{
+	t_token	*aux;
+
+	aux = *token_list;
+	while (aux)
+	{
+		if (is_redir(aux->type))
+		{
+			if (aux->type == HEREDOC)
+				aux->next->type = EOF_N;
+			else
+				aux->next->type = FILENAME;
+		}
+		aux = aux->next;
+	}
 }
