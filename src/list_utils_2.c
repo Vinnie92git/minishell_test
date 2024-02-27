@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/14 20:56:36 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/27 15:22:00 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ void	ms_cmdclear(t_scmd **list)
 		while (*list)
 		{
 			aux = (*list)->next;
+			if ((*list)->cmd_args)
+				free_array((*list)->cmd_args);
+			if ((*list)->cmd_name)
+				free((*list)->cmd_name);
+			if ((*list)->cmd_path)
+				free((*list)->cmd_path);
 			ms_lstclear(&(*list)->wordlist);
 			free(*list);
 			(*list) = aux;

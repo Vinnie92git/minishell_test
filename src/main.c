@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 14:00:42 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:32:12 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	shell_operation(char *line, t_token *list, t_scmd *scmds, t_info info)
 		panic(err, NULL, NULL);
 	if (err == 1)
 	{
-		// ms_print_lst(list);
 		err = parser(&list, &scmds, &info);
 		if (err != 1)
 			panic(err, NULL, NULL);
-		// ms_print_cmdlst(scmds);
 		err = executer(&scmds, &info);
 		if (err != 1)
 			panic(err, NULL, NULL);
@@ -54,12 +52,13 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd_line = readline("minishell-1.0$ ");
 		if (!cmd_line)
-			exit(0);
+			break ;
 		if (cmd_line[0])
 		{
 			cmd_line[ft_strlen(cmd_line)] = '\0';
 			shell_operation(cmd_line, token_list, scmds_list, info);
 		}
 	}
+	free_info(info);
 	return (0);
 }

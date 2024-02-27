@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 10:57:36 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:27:46 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ void	ms_close_fds(t_scmd **list);
 
 /* ------ ERROR ------ */
 void	panic(int err, t_token **list, t_token *token);
+void	free_array(char **str);
+void	free_info(t_info info);
 
 /* ------ ENV ------ */
 char	**copy_env(char **envp);
