@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 11:57:28 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 14:00:42 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	main(int argc, char **argv, char **envp)
 	t_info	info;
 	char	*cmd_line;
 
-	(void)argv;
-	(void)argc;
+	if (argc > 1 || ft_strncmp(argv[0], "./minishell", ft_strlen(argv[0])))
+		return (printf("No smartass shenanigans, just the executable ;)\n"));
 	token_list = NULL;
 	scmds_list = NULL;
 	cmd_line = NULL;
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd_line = readline("minishell-1.0$ ");
 		if (!cmd_line)
-			panic(READLINE_ERR, NULL, NULL);
+			exit(0);
 		if (cmd_line[0])
 		{
 			cmd_line[ft_strlen(cmd_line)] = '\0';

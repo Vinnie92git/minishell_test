@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 12:17:36 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:42:42 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	check_cmds(t_scmd **scmds_list, t_info *info)
 		}
 		aux = aux->next;
 	}
+	free(aux);
 }
 
 int	executer(t_scmd **scmds_list, t_info *info)
