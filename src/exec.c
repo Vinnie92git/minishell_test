@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/16 11:37:54 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:17:36 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 		if (!aux->next)
 			err = single_child(aux, info, upstream);
 		else
-			err = exec_child(aux, info, upstream, pipe_fd[1], pipe_fd[0]);
-		if (err != 1)
-			return (err);
+			err = exec_child(aux, info, upstream, pipe_fd);
 		close(pipe_fd[1]);
 		upstream = pipe_fd[0];
 		aux = aux->next;
 	}
 	while (wait(NULL) != -1 || errno != ECHILD)
+		;
 	close(pipe_fd[0]);
 	close(upstream);
+	free (aux);
 	return (1);
 }
 

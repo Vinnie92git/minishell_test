@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 10:44:55 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:14:51 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_dup(int old_fd, int new_fd)
 	close(old_fd);
 }
 
-int	exec_child(t_scmd *scmd, t_info *info, int upstr, int p_w, int p_r)
+int	exec_child(t_scmd *scmd, t_info *info, int upstr, int *pipe_fd)
 {
 	pid_t	pid;
 
@@ -27,15 +27,15 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstr, int p_w, int p_r)
 		return (FORK_ERR);
 	if (pid == 0)
 	{
-		close(p_r);
+		close(pipe_fd[0]);
 		if (scmd->infile != -1)
 			ft_dup(scmd->infile, STDIN_FILENO);
 		else if (upstr != -1)
 			ft_dup(upstr, STDIN_FILENO);
 		if (scmd->outfile != -1)
 			ft_dup(scmd->outfile, STDOUT_FILENO);
-		else if (p_w != -1)
-			ft_dup(p_w, STDOUT_FILENO);
+		else if (pipe_fd[1] != -1)
+			ft_dup(pipe_fd[1], STDOUT_FILENO);
 		if (!scmd->cmd_path)
 			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
@@ -82,7 +82,6 @@ int	get_cmd(t_scmd *scmd, t_info *info)
 		if (access(command, F_OK & R_OK & X_OK) == 0)
 		{
 			scmd->cmd_path = command;
-			// printf("command %s is valid\n", scmd->cmd_name);
 			return (1);
 		}
 		free(command);
@@ -96,10 +95,7 @@ int	check_path(t_scmd *scmd)
 	if (scmd->cmd_name[0] == '.' || scmd->cmd_name[0] == '/')
 	{
 		if (access(scmd->cmd_name, F_OK & R_OK & X_OK) == 0)
-		{
-			// printf("command path %s is valid\n", scmd->cmd_name);
 			return (1);
-		}
 		else
 			return (COMMAND_ERR);
 	}

@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 10:43:12 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:57:36 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 /* ------ EXECUTER ------ */
 void	ft_dup(int old_fd, int new_fd);
 void	check_cmds(t_scmd **scmds_list, t_info *info);
-int		exec_child(t_scmd *scmd, t_info *info, int upstr, int p_w, int p_r);
+int		exec_child(t_scmd *scmd, t_info *info, int upstr, int *pipe_fd);
 int		single_child(t_scmd *scmd, t_info *info, int upstream);
 int		exec_cmds(t_scmd **scmds_list, t_info *info);
 int		get_cmd(t_scmd *scmds_list, t_info *info);
