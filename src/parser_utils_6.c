@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 20:25:53 by vini              #+#    #+#             */
-/*   Updated: 2024/02/22 19:24:59 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/27 10:46:42 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	*unquoted_str(char *unquoted, char *str, int i, int j)
 {
 	int		quote;
-	
-	while(str[i])
+
+	while (str[i])
 	{
 		if (is_quote(str[i]))
 		{

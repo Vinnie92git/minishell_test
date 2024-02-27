@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/22 19:18:39 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/27 10:44:55 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_dup(int old_fd, int new_fd)
 	close(old_fd);
 }
 
-int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w, int pipe_r)
+int	exec_child(t_scmd *scmd, t_info *info, int upstr, int p_w, int p_r)
 {
 	pid_t	pid;
 
@@ -27,20 +27,20 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstream, int pipe_w, int pipe_r)
 		return (FORK_ERR);
 	if (pid == 0)
 	{
-		close(pipe_r);
+		close(p_r);
 		if (scmd->infile != -1)
 			ft_dup(scmd->infile, STDIN_FILENO);
-		else if (upstream != -1)
-			ft_dup(upstream, STDIN_FILENO);
+		else if (upstr != -1)
+			ft_dup(upstr, STDIN_FILENO);
 		if (scmd->outfile != -1)
 			ft_dup(scmd->outfile, STDOUT_FILENO);
-		else if (pipe_w != -1)
-			ft_dup(pipe_w, STDOUT_FILENO);
+		else if (p_w != -1)
+			ft_dup(p_w, STDOUT_FILENO);
 		if (!scmd->cmd_path)
 			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
-	close(upstream);
+	close(upstr);
 	return (1);
 }
 
@@ -78,7 +78,6 @@ int	get_cmd(t_scmd *scmd, t_info *info)
 	{
 		aux = ft_strjoin(info->bin_paths[i], "/");
 		command = ft_strjoin(aux, scmd->cmd_name);
-		
 		free(aux);
 		if (access(command, F_OK & R_OK & X_OK) == 0)
 		{

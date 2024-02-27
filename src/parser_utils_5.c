@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:15:01 by vini              #+#    #+#             */
-/*   Updated: 2024/02/22 19:24:39 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/27 10:46:32 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char*	unquote(char *str)
+char	*unquote(char *str)
 {
 	char	*unquoted;
-	int	i;
-	int	f_len;
+	int		i;
+	int		f_len;
 
 	i = 0;
 	f_len = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (is_quote(str[i]))
 		{

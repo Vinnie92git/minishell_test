@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 22:03:54 by vini              #+#    #+#             */
-/*   Updated: 2024/02/21 22:11:44 by vini             ###   ########.fr       */
+/*   Updated: 2024/02/27 10:45:59 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ char	*quoted_dsign(char *str, char **env, int i)
 	return (str);
 }
 
-char*	expand(char *str, char **env)
+char	*expand(char *str, char **env)
 {
 	int	i;
 	int	quote;
 
 	i = 0;
 	quote = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (is_quote(str[i]))
 		{
