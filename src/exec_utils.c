@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 12:14:51 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:16:57 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_dup(int old_fd, int new_fd)
 	close(old_fd);
 }
 
-int	exec_child(t_scmd *scmd, t_info *info, int upstr, int *pipe_fd)
+int	exec_child(t_scmd *scmd, t_info *info, int upstream, int *pipe_fd)
 {
 	pid_t	pid;
 
@@ -30,8 +30,8 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstr, int *pipe_fd)
 		close(pipe_fd[0]);
 		if (scmd->infile != -1)
 			ft_dup(scmd->infile, STDIN_FILENO);
-		else if (upstr != -1)
-			ft_dup(upstr, STDIN_FILENO);
+		else if (upstream != -1)
+			ft_dup(upstream, STDIN_FILENO);
 		if (scmd->outfile != -1)
 			ft_dup(scmd->outfile, STDOUT_FILENO);
 		else if (pipe_fd[1] != -1)
@@ -40,7 +40,7 @@ int	exec_child(t_scmd *scmd, t_info *info, int upstr, int *pipe_fd)
 			exit(127);
 		return (execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy));
 	}
-	close(upstr);
+	close(upstream);
 	return (1);
 }
 
