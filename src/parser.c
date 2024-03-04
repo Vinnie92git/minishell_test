@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 13:07:20 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/22 01:27:34 by vini             ###   ########.fr       */
+/*   Updated: 2024/03/04 11:41:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	find_cmds(t_scmd **scmds_list)
 			return (err);
 		aux = aux->next;
 	}
+	free(aux);
 	return (err);
 }
 
@@ -43,6 +44,7 @@ void	handle_redir(t_scmd **scmds_list)
 			panic(err, NULL, NULL);
 		aux = aux->next;
 	}
+	free(aux);
 }
 
 int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
@@ -60,6 +62,7 @@ int	build_scmdlist(t_token **token_list, t_scmd **scmds_list, t_info *info)
 		cmd_nbr++;
 	}
 	info->pipe_nbr = cmd_nbr - 1;
+	free(aux);
 	return (1);
 }
 

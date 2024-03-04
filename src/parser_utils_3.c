@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:40:48 by vini              #+#    #+#             */
-/*   Updated: 2024/02/22 19:16:28 by vini             ###   ########.fr       */
+/*   Updated: 2024/03/04 11:28:09 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	store_cmdargs(t_scmd *scmd)
 		}
 		aux = aux->next;
 	}
+	free(aux);
 	scmd->cmd_args[i] = 0;
 	if (scmd->cmd_args[0])
 		scmd->cmd_name = ft_strdup(scmd->cmd_args[0]);
@@ -46,6 +47,7 @@ int	build_cmd(t_scmd *scmd)
 			argcount++;
 		aux = aux->next;
 	}
+	free(aux);
 	scmd->cmd_args = malloc(sizeof(char *) * (argcount + 1));
 	if (scmd->cmd_args == NULL)
 		return (MALLOC_ERR);
@@ -69,4 +71,5 @@ void	assign_filenames(t_token **token_list)
 		}
 		aux = aux->next;
 	}
+	free(aux);
 }

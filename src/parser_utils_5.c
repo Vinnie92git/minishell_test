@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 12:15:01 by vini              #+#    #+#             */
-/*   Updated: 2024/02/27 10:46:32 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:36:53 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	check_quotes(t_scmd *scmd)
 				aux->content = unquote(aux->content);
 		aux = aux->next;
 	}
+	free(aux);
 }
 
 void	remove_quotes(t_scmd **scmds_list)
@@ -64,6 +65,7 @@ void	remove_quotes(t_scmd **scmds_list)
 		check_quotes(aux);
 		aux = aux->next;
 	}
+	free(aux);
 }
 
 char	*buffer_var(char *source, int start, int end, char **env)

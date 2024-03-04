@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:28:24 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 12:18:00 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:16:36 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ int	check_files(t_scmd *scmd)
 			return (err);
 		aux = aux->next;
 	}
+	free(aux);
 	return (err);
 }

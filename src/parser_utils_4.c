@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 22:03:54 by vini              #+#    #+#             */
-/*   Updated: 2024/02/27 10:45:59 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:31:29 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	check_dsign(t_scmd *scmd, char **env)
 				aux->content = expand(aux->content, env);
 		aux = aux->next;
 	}
+	free(aux);
 }
 
 void	expand_var(t_scmd **scmds_list, char **env)
@@ -86,4 +87,5 @@ void	expand_var(t_scmd **scmds_list, char **env)
 		check_dsign(aux, env);
 		aux = aux->next;
 	}
+	free(aux);
 }

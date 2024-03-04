@@ -6,31 +6,11 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 10:41:58 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 15:22:00 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:09:59 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	ms_close_fds(t_scmd **list)
-{
-	t_scmd	*aux;
-
-	if (list != NULL)
-	{
-		aux = *list;
-		while (aux)
-		{
-			if (aux->infile != -1)
-				close(aux->infile);
-			if (aux->heredoc)
-				unlink(".heredoc");
-			if (aux->outfile != -1)
-				close(aux->outfile);
-			aux = aux->next;
-		}
-	}
-}
 
 void	ms_print_cmdlst(t_scmd *sequence)
 {
@@ -58,6 +38,26 @@ void	ms_print_cmdlst(t_scmd *sequence)
 		else
 			printf("(no command)\n");
 		sequence = sequence->next;
+	}
+}
+
+void	ms_close_fds(t_scmd **list)
+{
+	t_scmd	*aux;
+
+	if (list != NULL)
+	{
+		aux = *list;
+		while (aux)
+		{
+			if (aux->infile != -1)
+				close(aux->infile);
+			if (aux->heredoc)
+				unlink(".heredoc");
+			if (aux->outfile != -1)
+				close(aux->outfile);
+			aux = aux->next;
+		}
 	}
 }
 

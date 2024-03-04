@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/22 19:19:23 by vini             ###   ########.fr       */
+/*   Updated: 2024/03/04 11:08:35 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	handle_words(t_token **token_list, char *input, int i)
 	int		end;
 	int		quote;
 
-	token = ms_lstnew();
-	token->type = WORD;
 	end = i;
 	quote = 0;
 	while (input[end] && !is_space(input[end]) && !is_operator(input[end]))
@@ -36,6 +34,8 @@ int	handle_words(t_token **token_list, char *input, int i)
 		else
 			end++;
 	}
+	token = ms_lstnew();
+	token->type = WORD;
 	token->content = ft_substr(input, i, end - i);
 	ms_lstadd_back(token_list, token);
 	return (end);
