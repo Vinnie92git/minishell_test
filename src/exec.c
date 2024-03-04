@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:16:05 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/02/27 12:42:42 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:43:56 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,33 @@ int	exec_cmds(t_scmd **scmds_list, t_info *info)
 	return (1);
 }
 
+int	check_builtin(t_scmd *scmd)
+{
+	char	*str;
+
+	str = scmd->cmd_name;
+	if (str)
+	{
+		if (!ft_strncmp(str, "echo", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "cd", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "pwd", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "export", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "unset", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "env", ft_strlen(str)))
+			return (1);
+		else if (!ft_strncmp(str, "exit", ft_strlen(str)))
+			return (1);
+		else
+			return (2);
+	}
+	return (0);
+}
+
 void	check_cmds(t_scmd **scmds_list, t_info *info)
 {
 	t_scmd	*aux;
@@ -49,7 +76,8 @@ void	check_cmds(t_scmd **scmds_list, t_info *info)
 	aux = *scmds_list;
 	while (aux)
 	{
-		if (aux->cmd_name)
+		err = check_builtin(aux);
+		if (err == 2)
 		{
 			err = check_path(aux);
 			if (err == 1)

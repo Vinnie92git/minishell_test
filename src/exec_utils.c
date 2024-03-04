@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:10:11 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/04 12:16:57 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:32:16 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	single_child(t_scmd *scmd, t_info *info, int upstream)
 {
 	pid_t	pid;
 
-	pid = fork();
+	pid = exec_builtin(scmd, info, upstream);
+	if (pid != 2)
+		pid = fork();
 	if (pid == -1)
 		return (FORK_ERR);
 	if (pid == 0)
