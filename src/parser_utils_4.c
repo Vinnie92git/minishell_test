@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 22:03:54 by vini              #+#    #+#             */
-/*   Updated: 2024/03/04 11:31:29 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:13:12 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*quoted_dsign(char *str, char **env, int i)
 	{
 		if (quote == is_quote(str[i]))
 			quote = 0;
-		else if (str[i] == '$' && ft_isalnum(str[i + 1]))
+		else if (str[i] == '$' && (ft_isalnum(str[i + 1])
+				|| str[i + 1] == '?'))
 			str = expand_dsign(str, env);
 	}
 	return (str);
