@@ -6,34 +6,57 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 15:45:45 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/04 16:29:14 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:19:18 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// int	exec_builtin(t_scmd *scmd, t_info *info, int upstream)
-// {
-// 	char	*str;
-	
-// 	str = scmd->cmd_name;
-// 	if (str)
-// 	{
-// 		if (!ft_strncmp(str, "echo", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "cd", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "pwd", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "export", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "unset", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "env", ft_strlen(str)))
-// 			return (1);
-// 		else if (!ft_strncmp(str, "exit", ft_strlen(str)))
-// 			return (1);
-// 		else
-// 			return (0);
-// 	}
-// }
+void	exec_child(t_scmd *scmd, t_info *info, int upstream, int *pipe_fd)
+{
+	close(pipe_fd[0]);
+	if (scmd->infile != -1)
+		ft_dup(scmd->infile, STDIN_FILENO);
+	else if (upstream != -1)
+		ft_dup(upstream, STDIN_FILENO);
+	if (scmd->outfile != -1)
+		ft_dup(scmd->outfile, STDOUT_FILENO);
+	else if (pipe_fd[1] != -1)
+		ft_dup(pipe_fd[1], STDOUT_FILENO);
+	if (!scmd->cmd_path)
+	{
+		if (check_builtin(scmd) == 1)
+		{
+			ft_builtin(scmd->cmd_args);
+			exit(1);
+		}
+		else
+			exit(127);
+	}
+	execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy);
+}
+
+void	last_child(t_scmd *scmd, t_info *info, int upstream)
+{
+	if (scmd->infile != -1)
+		ft_dup(scmd->infile, STDIN_FILENO);
+	else if (upstream != -1)
+		ft_dup(upstream, STDIN_FILENO);
+	if (scmd->outfile != -1)
+		ft_dup(scmd->outfile, STDOUT_FILENO);
+	if (!scmd->cmd_path)
+	{
+		if (check_builtin(scmd) == 1)
+		{
+			ft_builtin(scmd->cmd_args);
+			exit(1);
+		}
+		exit(127);
+	}
+	execve(scmd->cmd_path, scmd->cmd_args, info->env_cpy);
+}
+
+void	ft_builtin(char **args)
+{
+	printf("%s\n", args[0]);
+}

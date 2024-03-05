@@ -6,7 +6,7 @@
 /*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/04 16:24:45 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:24:38 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,13 @@ int		parser(t_token **token_list, t_scmd **scmds_list, t_info *info);
 /* ------ EXECUTER ------ */
 void	ft_dup(int old_fd, int new_fd);
 void	check_cmds(t_scmd **scmds_list, t_info *info);
-int		exec_builtin(t_scmd *scmd, t_info *info, int upstream);
+void	exec_child(t_scmd *scmd, t_info *info, int upstream, int *pipe_fd);
+void	last_child(t_scmd *scmd, t_info *info, int upstream);
+void	ft_builtin(char **args);
+void	parent_close(int fd_1, int fd_2, t_scmd *scmd);
 int		check_builtin(t_scmd *scmd);
-int		exec_child(t_scmd *scmd, t_info *info, int upstream, int *pipe_fd);
-int		single_child(t_scmd *scmd, t_info *info, int upstream);
+int		exec_command(t_scmd *scmd, t_info *info, int upstream, int *pipe_fd);
+int		last_command(t_scmd *scmd, t_info *info, int upstream);
 int		exec_cmds(t_scmd **scmds_list, t_info *info);
 int		get_cmd(t_scmd *scmds_list, t_info *info);
 int		check_path(t_scmd *scmd);
