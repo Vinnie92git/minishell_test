@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:53:30 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/05 14:24:38 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/06 21:09:08 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ enum e_error
 	FORK_ERR
 };
 
+/* ------ GLOBAL ------ */
+extern int	exit_status;
+
 /* ------ MAIN ------ */
 void	shell_operation(char *line, t_token *list, t_scmd *scmds, t_info info);
 
@@ -111,7 +114,7 @@ int		handle_operators(t_token **token_list, char *input, int i);
 int		handle_words(t_token **token_list, char *input, int i);
 int		operator_type(char *input, int i);
 int		is_operator(char c);
-int		is_quote(char c);
+int		is_qte(char c);
 int		is_space(char c);
 int		is_dsign(char c);
 
@@ -129,7 +132,7 @@ char	*unquoted_str(char *unquoted, char *str, int i, int j);
 char	*unquote(char *str);
 char	*expand(char *str, char **env);
 char	*buffer_var(char *source, int start, int end, char **env);
-char	*expand_dsign(char *str, char **env);
+char	*expand_dsign(char *str, char **env, int start);
 char	*quoted_dsign(char *str, char **env, int i);
 int		count_flen(char *str, int i);
 int		closing_quote(char *str, int i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:58:28 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/01/29 10:50:00 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:16:20 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_space(char c)
 	return (FALSE);
 }
 
-int	is_quote(char c)
+int	is_qte(char c)
 {
 	if (c == '\'')
 		return (SINGLE_QUOTE);

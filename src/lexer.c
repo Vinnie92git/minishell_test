@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 12:11:27 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/04 11:08:35 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:17:40 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	handle_words(t_token **token_list, char *input, int i)
 	quote = 0;
 	while (input[end] && !is_space(input[end]) && !is_operator(input[end]))
 	{
-		if (is_quote(input[end]))
+		if (is_qte(input[end]))
 		{
-			quote = is_quote(input[end]);
+			quote = is_qte(input[end]);
 			while (input[end++] && quote != 0)
-				if (quote == is_quote(input[end]))
+				if (quote == is_qte(input[end]))
 					quote = 0;
 			if (quote)
 				return (-1);

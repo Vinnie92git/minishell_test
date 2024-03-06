@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 20:25:53 by vini              #+#    #+#             */
-/*   Updated: 2024/02/27 10:46:42 by vipalaci         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:18:54 by vini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ char	*unquoted_str(char *unquoted, char *str, int i, int j)
 
 	while (str[i])
 	{
-		if (is_quote(str[i]))
+		if (is_qte(str[i]))
 		{
-			quote = is_quote(str[i]);
+			quote = is_qte(str[i]);
 			i++;
 			while (quote != 0)
 			{
-				if (quote == is_quote(str[i]))
+				if (quote == is_qte(str[i]))
 				{
 					quote = 0;
 					i++;
@@ -46,10 +46,10 @@ int	count_flen(char *str, int i)
 	int	quote;
 
 	f_len = 0;
-	quote = is_quote(str[i]);
+	quote = is_qte(str[i]);
 	while (str[i++] && quote != 0)
 	{
-		if (quote == is_quote(str[i]))
+		if (quote == is_qte(str[i]))
 			quote = 0;
 		else
 			f_len++;
