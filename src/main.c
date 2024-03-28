@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vini <vini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vipalaci <vipalaci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 11:49:57 by vipalaci          #+#    #+#             */
-/*   Updated: 2024/03/06 21:13:22 by vini             ###   ########.fr       */
+/*   Updated: 2024/03/28 15:24:41 by vipalaci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	shell_operation(char *line, t_token *list, t_scmd *scmds, t_info info)
 	ms_cmdclear(&scmds);
 }
 
+void	leaks(void)
+{
+	system("leaks -q minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_token	*token_list;
@@ -62,5 +67,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 	free_info(info);
+	atexit(leaks);
 	return (0);
 }
